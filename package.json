@@ -1,7 +1,8 @@
 {
+    "version": "0.0.1",
     "name": "luss",
     "description": "A less tookit",
-    "homepage": "",
+    "homepage": "https://github.com/ccwq/luss",
     "devDependencies": {
         "gulp": "^4.0.0",
         "gulp-less": "^4.0.1",
