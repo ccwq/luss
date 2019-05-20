@@ -1098,11 +1098,71 @@
     }
 
 
+    @values:
+        0em
+        0.125em
+        0.25em
+        0.3em
+        0.5em
+        0.6em
+        0.75em
+        0.8em
+        0.85em
+        0.9em
+        0.95em
+        1em
+        1.05em
+        1.1em
+        1.15em
+        1.2em
+        1.25em
+        1.3em
+        1.35em
+        1.4em
+        1.45em
+        1.5em
+        1.75em
+        1.8em
+        2em
+        2.1em
+        2.2em
+        2.25em
+        2.4em
+        2.5em
+        2.7em
+        3em
+        3.3em
+        3.6em
+        3.9em
+        4em
+        4.2em
+        4.5em
+        4.8em
+        5em
+        5.1em
+        6em
+        9em
+        12em
+        15em
+        18em
+        21em
+        24em
+        27em
+        30em
+        33em
+        36em
+        39em
+        42em
+        45em
+        48em
+;
+
+
     //距离组   //.mt1.mb025
-    .toolkitGen("distance",0em 0.125em 0.25em 0.5em 0.75em 1em 1.25em 1.5em 1.8em 2em 2.1em 2.4em 2.5em 2.7em 3em 3.3em 3.5em 3.6em 3.9em 4em);
+    .toolkitGen("distance", @values);
 
     //大小 //.fz075 fz95 fz10d5 w08 w15 w17d5 .scale09
-    .toolkitGen("size",0em 0.25em 0.5em 0.75em 0.8em 0.85em 0.9em 0.95em 1em 1.05em 1.1em 1.15em 1.2em  1.25em 1.3em 1.35em 1.4em 1.5em 1.6em 1.7em 1.75em 1.8em 2em 2.1em 2.25em 2.4em 2.5em 2.7em 3em 3.3em 3.6em 3.9em 4em 4.5em 5em 6em 9em 12em 15em 18em 21em 24em);
+    .toolkitGen("size", @values);
 
     //透明 .op01.op05.op10
     .toolkitGen("opacity",0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1);
