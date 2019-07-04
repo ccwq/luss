@@ -127,6 +127,15 @@
     .__writes(left top right bottom, @value)
 }
 
+._dib{display: inline-block;}
+
+._db{display: block;}
+
+._di{display: inline;}
+
+._df{display: flex;}
+
+
 //reset;
 .reset(){
     html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
@@ -179,7 +188,7 @@
     border: @size solid @blankColor;
     border-@{dir}-width: 0;
     ._size_lh(0);
-    .ib;
+    ._dib;
 
 
     .____write() when(@dir=right){border-left-color:@color;}
