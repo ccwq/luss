@@ -23,6 +23,11 @@
 }
 
 
+.noselect{
+    user-select: none;
+}
+
+
 //设置了单位
 .__write(@key,@value,@defaultUnit:px) when not(get-unit(@value)=~"") or not(isnumber(@value)){
         @{key}:@value;
@@ -206,7 +211,7 @@
     line-height: 0;
     font-size: 0;
     ._size(0);
-    &:extend(.iblock);
+    &:extend(.dib);
 }
 //----形成三角
 
@@ -309,7 +314,7 @@
 
     //对单元格的一些公共设置
     >*{
-        &:extend(.iblock); font-size: @fsize;
+        &:extend(.dib); font-size: @fsize;
     }
 }
 
@@ -358,7 +363,7 @@
         font-size: 0;
 
         >*{
-            &:extend(.iblock);
+            &:extend(.dib);
             font-size: 14px;
             min-height: @gap;
             margin-bottom: @gap;
@@ -860,6 +865,15 @@
 //字符串截取
 .txcut{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+//不可选
+.noselect{
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    -khtml-user-select:none;
+    user-select:none;
+}
+
 //铺满到容器（一般用户fiex或者absolute定位）
 .fillin{._fillin;}
 
@@ -878,6 +892,8 @@
 
     .__class_write(bg-icon,     background-repeat background-position, no-repeat  ~"50% 50%");
     .__class_write(noselect,    -moz-user-select -webkit-user-select -ms-user-select -khtml-user-select user-select, none none none none none);
+
+    .__class_write(txcut,    overflow -text-overflow white-space, hidden ellipsis nowrap);
     .__class_write_with_important(ib,          display, inline-block);
     .__class_write_with_important(db,          display, block);
     .__class_write_with_important(center,      margin-left margin-right,auto auto);
