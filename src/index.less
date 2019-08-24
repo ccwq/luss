@@ -986,6 +986,15 @@
             &-around    {align-content      : space-around;}
             &-stretch   {align-content      : stretch;}
         }
+
+        //flex-wrap设置
+        &.wrap{
+            &{flex-wrap: wrap;}
+            &-rev{flex-wrap: wrap-reverse;}
+            &-no{flex-wrap: nowrap;}
+            &-in{flex-wrap: inherit;}
+            &-un{flex-wrap: unset;}
+        }
     }
 
 
@@ -1005,18 +1014,15 @@
     .w-auto{width: auto;}
     .w-auto-i{width: auto !important;}
 
-    .z100{z-index: 100;}
-    .z500{z-index: 100;}
-    .z900{z-index: 100;}
+    //z的设置
+    each(range(0, 5000, 200){
+        .__class_write_with_important(~"z@{value}", z-index ,@value);
+    })
 
-
-    .__class_write_with_important(fw100, font-weight ,100);
-    .__class_write_with_important(fw200, font-weight ,200);
-    .__class_write_with_important(fw300, font-weight ,300);
-    .__class_write_with_important(fw400, font-weight ,400);
-    .__class_write_with_important(fw500, font-weight ,500);
-    .__class_write_with_important(fw600, font-weight ,600);
-    .__class_write_with_important(fw700, font-weight ,700);
+    //font-width
+    each(range(100, 700, 100){
+        .__class_write_with_important(~"fw@{value}", font-weight ,@value);
+    })
     .__class_write_with_important(fw-auto, font-weight ,inherit);
 
 
