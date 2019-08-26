@@ -3,6 +3,27 @@
 @fsize:12px;
 
 
+
+@direct-sets: {
+    t:top;
+    r:right;
+    b:bottom;
+    l:left;
+};
+
+@box-sets: {
+    m:margin;
+    p:padding;
+};
+
+@combie-direct-sets:{
+    v:top bottom;
+    h:left right;
+};
+
+
+
+
 @font_zhenghei:"Microsoft JhengHei";
 @font_yahei:"\5FAE\8F6F\96C5\9ED1", "Microsoft YaHei", "\9ED1\4F53", "\65B0\5B8B\4F53";
 @font_songti:"\5B8B\4F53", "SimSun";
@@ -1014,6 +1035,10 @@
     .w-auto{width: auto;}
     .w-auto-i{width: auto !important;}
 
+
+
+
+
     //z的设置
     each(range(0, 5000, 200){
         .__class_write_with_important(~"z@{value}", z-index ,@value);
@@ -1266,3 +1291,45 @@
 //.shortcutClass;
 
 
+
+@values:auto;
+
+each(@values, .(@value){
+    each(@direct-sets, .(@direct-value, @direct-key){
+        each(@box-sets, .(@box-value, @box-key){
+            @ab: if(
+                    (isnumber(@value)),
+                {
+                    @_val:unit(@value);
+                    @class:~"@{box-key}@{direct-key}@{_val}";
+                    .@{class}{
+                            @{box-value}-@{direct-value}:@value;
+                    }
+                },
+                {
+                    @class:~"@{box-key}@{direct-key}-@{value}";
+                    .@{class}{
+                            @{box-value}-@{direct-value}:@value;
+                    }
+                }
+            );
+            @ab();
+        })
+    });
+
+    each(@box-sets, .(@box-value, @box-key){
+        .@{box-key}{
+                @{box-value}:@value;
+        }
+
+        each(@combie-direct-sets, .(@cb-values, @cb-key){
+            .@{box-key}@{cb-key}{
+                each(@cb-values, .(@cb-value){
+                        @{box-value}-@{cb-value}: @value;
+                });
+            }
+        });
+    });
+})
+
+//
