@@ -62,6 +62,52 @@
 .fs-reset > * {
   font-size: 1rem;
 }
+.mt-auto {
+  margin-top: auto;
+}
+.pt-auto {
+  padding-top: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+.pr-auto {
+  padding-right: auto;
+}
+.mb-auto {
+  margin-bottom: auto;
+}
+.pb-auto {
+  padding-bottom: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.pl-auto {
+  padding-left: auto;
+}
+.m {
+  margin: auto;
+}
+.mv {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.mh {
+  margin-left: auto;
+  margin-right: auto;
+}
+.p {
+  padding: auto;
+}
+.pv {
+  padding-top: auto;
+  padding-bottom: auto;
+}
+.ph {
+  padding-left: auto;
+  padding-right: auto;
+}
 html,
 body,
 div,
