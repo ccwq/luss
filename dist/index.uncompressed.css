@@ -86,25 +86,25 @@
 .pl-auto {
   padding-left: auto;
 }
-.m {
+.m-auto {
   margin: auto;
 }
-.mv {
+.m-auto {
   margin-top: auto;
   margin-bottom: auto;
 }
-.mh {
+.m-auto {
   margin-left: auto;
   margin-right: auto;
 }
-.p {
+.p-auto {
   padding: auto;
 }
-.pv {
+.p-auto {
   padding-top: auto;
   padding-bottom: auto;
 }
-.ph {
+.p-auto {
   padding-left: auto;
   padding-right: auto;
 }

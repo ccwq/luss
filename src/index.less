@@ -1318,12 +1318,12 @@ each(@values, .(@value){
     });
 
     each(@box-sets, .(@box-value, @box-key){
-        .@{box-key}{
+        .@{box-key}-@{value}{
                 @{box-value}:@value;
         }
 
         each(@combie-direct-sets, .(@cb-values, @cb-key){
-            .@{box-key}@{cb-key}{
+            .@{box-key}-@{value}{
                 each(@cb-values, .(@cb-value){
                         @{box-value}-@{cb-value}: @value;
                 });
