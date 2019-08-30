@@ -1323,7 +1323,7 @@ each(@values, .(@value){
         }
 
         each(@combie-direct-sets, .(@cb-values, @cb-key){
-            .@{box-key}-@{value}{
+            .@{box-key}@{cb-key}-@{value}{
                 each(@cb-values, .(@cb-value){
                         @{box-value}-@{cb-value}: @value;
                 });
