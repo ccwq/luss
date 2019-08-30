@@ -89,22 +89,22 @@
 .m-auto {
   margin: auto;
 }
-.m-auto {
+.mv-auto {
   margin-top: auto;
   margin-bottom: auto;
 }
-.m-auto {
+.mh-auto {
   margin-left: auto;
   margin-right: auto;
 }
 .p-auto {
   padding: auto;
 }
-.p-auto {
+.pv-auto {
   padding-top: auto;
   padding-bottom: auto;
 }
-.p-auto {
+.ph-auto {
   padding-left: auto;
   padding-right: auto;
 }
