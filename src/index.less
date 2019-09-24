@@ -978,6 +978,15 @@
         align-items: center;
         justify-content: flex-start;
 
+        &.inline{
+            display: inline-flex;
+
+            //修复inline的偏差
+            &.fix{
+                margin-top: -0.14em;
+            }
+        }
+
         &.column{       flex-direction      : column;  }
 
         &.jc{
