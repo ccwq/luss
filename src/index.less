@@ -1298,7 +1298,7 @@
 //.table-1第一列宽度18em,第二列15px,第三列自动...
 .tableColSet(@rest...){
     .loop(@n) when (@n>0){
-        >tr>*{
+        >tbody>tr>*,>tr>*{
             @value:extract(@widthList,@n);
             @leng:length(@value);
             @width:extract(@value,1);
@@ -1308,6 +1308,9 @@
             &:nth-child(@{n}){
 
                 & when(@width>0){
+
+
+
                     width: @width;
                 }
 
