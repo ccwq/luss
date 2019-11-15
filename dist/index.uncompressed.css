@@ -10947,51 +10947,51 @@ a {
 .offset-y--12-i {
   top: -12px !important;
 }
-.mt-auto {
-  margin-top: auto;
-}
-.pt-auto {
-  padding-top: auto;
-}
-.mr-auto {
-  margin-right: auto;
-}
-.pr-auto {
-  padding-right: auto;
-}
-.mb-auto {
-  margin-bottom: auto;
-}
-.pb-auto {
-  padding-bottom: auto;
-}
-.ml-auto {
-  margin-left: auto;
-}
-.pl-auto {
-  padding-left: auto;
-}
 .m-auto {
   margin: auto;
 }
-.mv-auto {
-  margin-top: auto;
-  margin-bottom: auto;
+.m-auto-i {
+  margin: auto !important;
 }
 .mh-auto {
   margin-left: auto;
   margin-right: auto;
 }
-.p-auto {
-  padding: auto;
+.mh-auto-i {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
-.pv-auto {
-  padding-top: auto;
-  padding-bottom: auto;
+.mv-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
-.ph-auto {
-  padding-left: auto;
-  padding-right: auto;
+.mv-auto-i {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.ml-auto-i {
+  margin-left: auto !important;
+}
+.mt-auto {
+  margin-top: auto;
+}
+.mt-auto-i {
+  margin-top: auto !important;
+}
+.mr-auto {
+  margin-right: auto;
+}
+.mr-auto-i {
+  margin-right: auto !important;
+}
+.mb-auto {
+  margin-bottom: auto;
+}
+.mb-auto-i {
+  margin-bottom: auto !important;
 }
 .cl-lightWhite {
   color: rgba(255, 255, 255, 0.54);

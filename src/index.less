@@ -4,6 +4,7 @@
 
 
 
+//方位集合
 @direct-sets: {
     t:top;
     r:right;
@@ -11,11 +12,13 @@
     l:left;
 };
 
+//和模型集合
 @box-sets: {
     m:margin;
     p:padding;
 };
 
+//排列方向集合
 @combie-direct-sets:{
     v:top bottom;
     h:left right;
@@ -83,7 +86,7 @@
     ._loop(1)
 }
 
-.__writes(@keyList,@valueList) when (length(@valueList)>1){
+.__writes(@keyList, @valueList) when (length(@valueList)>1){
     @leng:length(@keyList);
     ._loop(@n) when(@n<=@leng){
         @key:extract(@keyList,@n);
@@ -1247,53 +1250,20 @@
     //vh,vw
     .toolkitGen("vwvh",0 10 12.5 14.285 16.66 20 25 30 33.33 36 50 66.66 75 100);
 
-
     //offset
     .toolkitGen("offset",-12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 9 10 11 12);
 
 
-
-
-
     //m-auto,mh-auto等
-    each(auto, .(@value){
-        each(@direct-sets, .(@direct-value, @direct-key){
-            each(@box-sets, .(@box-value, @box-key){
-                @ab: if(
-                        (isnumber(@value)),
-                    {
-                        @_val:unit(@value);
-                        @class:~"@{box-key}@{direct-key}@{_val}";
-                        .@{class}{
-                                @{box-value}-@{direct-value}:@value;
-                        }
-                    },
-                    {
-                        @class:~"@{box-key}@{direct-key}-@{value}";
-                        .@{class}{
-                                @{box-value}-@{direct-value}:@value;
-                        }
-                    }
-                );
-                @ab();
-            })
-        });
+        .__class_write_with_important(m-auto,margin,auto);
 
-        each(@box-sets, .(@box-value, @box-key){
-            .@{box-key}-@{value}{
-                    @{box-value}:@value;
-            }
+        .__class_write_with_important(mh-auto,margin-left margin-right,auto auto);
+        .__class_write_with_important(mv-auto,margin-top margin-bottom,auto auto);
 
-            each(@combie-direct-sets, .(@cb-values, @cb-key){
-                .@{box-key}@{cb-key}-@{value}{
-                    each(@cb-values, .(@cb-value){
-                            @{box-value}-@{cb-value}: @value;
-                    });
-                }
-            });
-        });
-    })
-
+        .__class_write_with_important(ml-auto,margin-left,auto);
+        .__class_write_with_important(mt-auto,margin-top,auto);
+        .__class_write_with_important(mr-auto,margin-right,auto);
+        .__class_write_with_important(mb-auto,margin-bottom,auto);
 }
 
 
