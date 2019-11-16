@@ -336,6 +336,12 @@ a {
 .wnw-i {
   white-space: nowrap !important;
 }
+.wnn {
+  white-space: normal;
+}
+.wnn-i {
+  white-space: normal !important;
+}
 .hide {
   display: none;
 }
