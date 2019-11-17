@@ -1266,6 +1266,22 @@
         .__class_write_with_important(mt-auto,margin-top,auto);
         .__class_write_with_important(mr-auto,margin-right,auto);
         .__class_write_with_important(mb-auto,margin-bottom,auto);
+
+
+
+    //子元素填充
+    .child-abs-fill{
+        position: relative;
+        >.child{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+
+
 }
 
 
@@ -1316,6 +1332,8 @@
     @le:length(@widthList);
     .loop(@le);
 }
+
+
 
 
 
