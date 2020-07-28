@@ -13,6 +13,9 @@
     },
     "dependencies": {},
     "scripts": {
-        "build": "gulp build-less"
+        "build": "gulp build-less",
+        "publish major": "snpm version major && snpm publish",
+        "publish minor": "snpm version minor && snpm publish",
+        "publish patch": "snpm version patch && snpm publish"
     }
 }
