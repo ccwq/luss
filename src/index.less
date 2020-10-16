@@ -1064,12 +1064,7 @@
             &-stretch    {align-items        : stretch;}
         }
 
-        >.as{
-            &-start{align-self      : flex-start;}
-            &-center{align-self     : center;}
-            &-end{align-self        : flex-end;}
-            &-stretch{align-self    : stretch;}
-        }
+
 
         &.ac{
             &-start     {align-content      : flex-start;}
@@ -1088,6 +1083,14 @@
             &-in{flex-wrap: inherit;}
             &-un{flex-wrap: unset;}
         }
+    }
+
+    //align-self系列
+    .as{
+        &-start{align-self      : flex-start;}
+        &-center{align-self     : center;}
+        &-end{align-self        : flex-end;}
+        &-stretch{align-self    : stretch;}
     }
 
 
