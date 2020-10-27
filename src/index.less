@@ -1064,12 +1064,7 @@
             &-stretch    {align-items        : stretch;}
         }
 
-        >.as{
-            &-start{align-self      : flex-start;}
-            &-center{align-self     : center;}
-            &-end{align-self        : flex-end;}
-            &-stretch{align-self    : stretch;}
-        }
+
 
         &.ac{
             &-start     {align-content      : flex-start;}
@@ -1090,6 +1085,14 @@
         }
     }
 
+    //align-self系列
+    .as{
+        &-start{align-self      : flex-start;}
+        &-center{align-self     : center;}
+        &-end{align-self        : flex-end;}
+        &-stretch{align-self    : stretch;}
+    }
+
 
     .fx1{ flex: 1;}
 
@@ -1100,8 +1103,19 @@
         &.xa    {overflow-x: auto;}
     }
 
+
     .h1px{height:    1px;}
     .w1px{width:     1px;}
+
+    .__class_write_with_important(h1px, height ,1px);
+    .__class_write_with_important(w1px, height ,1px);
+    .__class_write_with_important(bdt1px, border-top-width ,1px);
+    .__class_write_with_important(bdr1px, border-right-width ,1px);
+    .__class_write_with_important(bdb1px, border-bottom-width ,1px);
+    .__class_write_with_important(bdl1px, border-left-width ,1px);
+    .__class_write_with_important(bd1px, border-width ,1px);
+
+
     .h-auto{height: auto;}
     .h-auto-i{height: auto !important;}
     .w-auto{width: auto;}

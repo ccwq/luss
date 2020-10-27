@@ -734,18 +734,6 @@ a {
 .flex.ai-stretch {
   align-items: stretch;
 }
-.flex > .as-start {
-  align-self: flex-start;
-}
-.flex > .as-center {
-  align-self: center;
-}
-.flex > .as-end {
-  align-self: flex-end;
-}
-.flex > .as-stretch {
-  align-self: stretch;
-}
 .flex.ac-start {
   align-content: flex-start;
 }
@@ -779,6 +767,18 @@ a {
 .flex.wrap-un {
   flex-wrap: unset;
 }
+.as-start {
+  align-self: flex-start;
+}
+.as-center {
+  align-self: center;
+}
+.as-end {
+  align-self: flex-end;
+}
+.as-stretch {
+  align-self: stretch;
+}
 .fx1 {
   flex: 1;
 }
@@ -796,6 +796,48 @@ a {
 }
 .w1px {
   width: 1px;
+}
+.h1px {
+  height: 1px;
+}
+.h1px-i {
+  height: 1px !important;
+}
+.w1px {
+  height: 1px;
+}
+.w1px-i {
+  height: 1px !important;
+}
+.bdt1px {
+  border-top-width: 1px;
+}
+.bdt1px-i {
+  border-top-width: 1px !important;
+}
+.bdr1px {
+  border-right-width: 1px;
+}
+.bdr1px-i {
+  border-right-width: 1px !important;
+}
+.bdb1px {
+  border-bottom-width: 1px;
+}
+.bdb1px-i {
+  border-bottom-width: 1px !important;
+}
+.bdl1px {
+  border-left-width: 1px;
+}
+.bdl1px-i {
+  border-left-width: 1px !important;
+}
+.bd1px {
+  border-width: 1px;
+}
+.bd1px-i {
+  border-width: 1px !important;
 }
 .h-auto {
   height: auto;
