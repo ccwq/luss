@@ -32,10 +32,52 @@ import "less-t2/dist"
     
     //pading-left:50%; padding-right:50%;
     ._ph(50%);
-    
-    
-    
-    
 
 ```
 
+#文档
+
+
+工具类大致分为m,p,size,color系列以及其他零散的小工具class
+
+###p系列用来设置目标元素盒模型的padding
+
+.p10工具类对应的规则为
+
+```css
+.p10{padding:1em}
+
+/*支持import*/
+.p10-i{padding:1em !important}
+```
+以下为p系列的class列表
+
+规则名称 | 规则内容 | 说明 | 举例
+---|:---|:--- | :---
+p* | padding | - | \<div class="pl10"></div>
+pl* | padding-left | - | 
+pt* | padding-top | |
+pr* | padding-right  | |
+pb* | padding-bottom | |
+ph* | padding-left, padding-right | 设置水平方向padding |\<div class="ph10"></div>
+pv* | padding-top, padding-bottom | 设置垂直方向padding | -
+p-auto | padding:auto | 设置padding为auto
+pl-auto | padding-left:auto | 设置左padding为auto | -
+pt-auto | - | - |- 
+pr-auto | - | - |- 
+pb-auto | - | - |- 
+
+
+### m系列设置margin
+
+我相信你
+
+### size系列设置大小
+
+规则名称 | 规则内容 | 说明 | 举例
+---|:---|:--- | :---
+w* | width | 设置目标width | -
+h* | height | 设置目标height | -
+fz* | font-size | - | -
+lh* | height,line-height | - | -
+ti* | text-indent | - | -
