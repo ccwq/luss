@@ -1,5 +1,5 @@
 {
-    "version": "0.6.7",
+    "version": "0.6.11",
     "name": "luss",
     "description": "A less tookit",
     "homepage": "https://github.com/ccwq/luss",
@@ -14,8 +14,8 @@
     "dependencies": {},
     "scripts": {
         "build": "gulp build-less",
-        "publish major": "snpm version major && snpm publish",
-        "publish minor": "snpm version minor && snpm publish",
-        "publish patch": "snpm version patch && snpm publish"
+        "publish major": "npm run build && snpm version major && snpm publish",
+        "publish minor": "npm run build && snpm version minor && snpm publish",
+        "publish patch": "npm run build && snpm version patch && snpm publish"
     }
 }
