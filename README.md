@@ -63,14 +63,21 @@ ph* | padding-left, padding-right | 设置水平方向padding |\<div class="ph10
 pv* | padding-top, padding-bottom | 设置垂直方向padding | -
 p-auto | padding:auto | 设置padding为auto
 pl-auto | padding-left:auto | 设置左padding为auto | -
-pt-auto | - | - |- 
-pr-auto | - | - |- 
-pb-auto | - | - |- 
 
 
 ### m系列设置margin
 
-我相信你
+规则名称 | 规则内容 | 说明 | 举例
+---|:---|:--- | :---
+m* | margin | - | \<div class="ml10"></div>
+ml* | margin-left | - | 
+mt* | margin-top | |
+mr* | margin-right  | |
+mb* | margin-bottom | |
+mh* | margin-left, margin-right | 设置水平方向margin |\<div class="mh10"></div>
+mv* | margin-top, margin-bottom | 设置垂直方向margin | -
+m-auto | margin:auto | 设置margin为auto
+ml-auto | margin-left:auto | 设置左margin为auto | -
 
 ### size系列设置大小
 
