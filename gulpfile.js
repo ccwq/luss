@@ -5,6 +5,8 @@ const rm = require("rimraf");
 const cssmin = require('gulp-minify-css');
 const sourcemaps = require('gulp-sourcemaps');
 
+const {watch, task, series, parallel} = gulp;
+
 var lessGlob = ["src/**.less","!**/tool.less"];
 
 
@@ -39,8 +41,8 @@ gulp.task("build-less",async function(){
 
 
 
-gulp.task("watch-less",function(){
-    gulp.watch(lessGlob,["build-less"])
+task("watch-less",function(){
+    watch(lessGlob, series(["build-less"]));
 })
 
 

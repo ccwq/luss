@@ -14,6 +14,7 @@
     "dependencies": {},
     "scripts": {
         "build": "gulp build-less",
+        "watch": "gulp watch-less",
         "publish major": "npm run build && snpm version major && snpm publish",
         "publish minor": "npm run build && snpm version minor && snpm publish",
         "publish patch": "npm run build && snpm version patch && snpm publish"

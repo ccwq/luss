@@ -919,7 +919,6 @@
 
 .shortcutClass(){
 
-
     //宽度生成
     .ew{
         each(range(3, 30), {
@@ -1021,9 +1020,6 @@
     .__class_write_with_important(fit-cover, object-fit, cover);
     .__class_write_with_important(fit-contain, object-fit, contain);
 
-
-    .__class_write_with_important(brs50p, border-radius, 50%);
-
     .__class_write_with_important(ts-late-x--50p, transform, translateX(-50%));
     .__class_write_with_important(ts-late-y--50p, transform, translateY(-50%));
 
@@ -1064,8 +1060,6 @@
             &-stretch    {align-items        : stretch;}
         }
 
-
-
         &.ac{
             &-start     {align-content      : flex-start;}
             &-center    {align-content      : center;}
@@ -1093,7 +1087,6 @@
         &-stretch{align-self    : stretch;}
     }
 
-
     .fx1{ flex: 1;}
 
 
@@ -1103,29 +1096,40 @@
         &.xa    {overflow-x: auto;}
     }
 
+    each(range(0, 5), {
+        .__class_write_with_important(~"h@{value}px", height , unit(@value, px));
+        .__class_write_with_important(~"w@{value}px", height ,unit(@value, px));
+        .__class_write_with_important(~"bt@{value}px", border-top-width ,unit(@value, px));
+        .__class_write_with_important(~"br@{value}px", border-right-width , unit(@value, px));
+        .__class_write_with_important(~"bb@{value}px", border-bottom-width , unit(@value, px));
+        .__class_write_with_important(~"bl@{value}px", border-left-width , unit(@value, px));
+        .__class_write_with_important(~"bd@{value}px", border-width , unit(@value, px));
+        .__class_write_with_important(~"h@{value}px", height , unit(@value, px));
+        .__class_write_with_important(~"w@{value}px", width , unit(@value, px));
+        .__class_write_with_important(~"s@{value}px", width height, unit(@value, px));
+    })
 
-    .h1px{height:    1px;}
-    .w1px{width:     1px;}
 
-    .__class_write_with_important(h1px, height ,1px);
-    .__class_write_with_important(w1px, height ,1px);
-    .__class_write_with_important(bdt1px, border-top-width ,1px);
-    .__class_write_with_important(bdr1px, border-right-width ,1px);
-    .__class_write_with_important(bdb1px, border-bottom-width ,1px);
-    .__class_write_with_important(bdl1px, border-left-width ,1px);
-    .__class_write_with_important(bd1px, border-width ,1px);
+    .__class_write_with_important(h-auto, height, auto);
+    .__class_write_with_important(w-auto, width, auto);
 
-
-    .h-auto{height: auto;}
-    .h-auto-i{height: auto !important;}
-    .w-auto{width: auto;}
-    .w-auto-i{width: auto !important;}
+    .__class_write_with_important(bg-size-cover, background-size, cover);
+    .__class_write_with_important(bg-size-contain, background-size, contain);
+    .__class_write_with_important(bg-size-100p, background-size, ~"100% 100%");
 
 
     //z的设置
-    each(range(0, 5000, 200){
+    each(range(0, 5000, 100){
         .__class_write_with_important(~"z@{value}", z-index ,@value);
     })
+
+
+    //border-raduis
+    each(0 1 2 3 4 5 7 8 9,{
+        .__class_write_with_important(~"bdr@{value}", border-radius ,unit(@value, px));
+    })
+    .__class_write_with_important(brs50p, border-radius, 50%);
+
 
     //font-width
     each(range(100, 700, 100){
@@ -1160,6 +1164,7 @@
         //大小
         .write(@key,@value) when(@gp = "size"){
             .__class_write_with_important(~"fz@{key}",      font-size, @value);
+            .__class_write_with_important(~"fz@{key}-rem",      font-size, unit(@value, rem));
             .__class_write_with_important(~"w@{key}",       width, @value);
             .__class_write_with_important(~"h@{key}",       height, @value);
             .__class_write_with_important(~"lh@{key}",      line-height, @value);
@@ -1169,8 +1174,10 @@
         }
 
         //透明
-        .write(@key,@value) when(@gp = "opacity"){
+        .write(@key, @value) when(@gp = "opacity"){
             .__class_write_with_important(~"op@{key}",    opacity,  @value);
+            .op@{key}-hover:hover{opacity: @value;}
+            .op@{key}-hover-i:hover{opacity: @value !important;}
         }
 
 
@@ -1185,8 +1192,6 @@
             .__class_write_with_important(~"vw@{key}",    width,  ~"@{value}vw");
             .__class_write_with_important(~"vh@{key}",    width,  ~"@{value}vh");
         }
-
-
 
         .loop(@n)when(@n>0){
             @val:extract(@value-list,@n);
@@ -1350,15 +1355,15 @@
 
 
     //m-auto,mh-auto等
-        .__class_write_with_important(m-auto,margin,auto);
+    .__class_write_with_important(m-auto,margin,auto);
 
-        .__class_write_with_important(mh-auto,margin-left margin-right,auto auto);
-        .__class_write_with_important(mv-auto,margin-top margin-bottom,auto auto);
+    .__class_write_with_important(mh-auto,margin-left margin-right,auto auto);
+    .__class_write_with_important(mv-auto,margin-top margin-bottom,auto auto);
 
-        .__class_write_with_important(ml-auto,margin-left,auto);
-        .__class_write_with_important(mt-auto,margin-top,auto);
-        .__class_write_with_important(mr-auto,margin-right,auto);
-        .__class_write_with_important(mb-auto,margin-bottom,auto);
+    .__class_write_with_important(ml-auto,margin-left,auto);
+    .__class_write_with_important(mt-auto,margin-top,auto);
+    .__class_write_with_important(mr-auto,margin-right,auto);
+    .__class_write_with_important(mb-auto,margin-bottom,auto);
 
 
 
