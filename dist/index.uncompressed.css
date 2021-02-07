@@ -1,17 +1,30 @@
 .noselect {
   user-select: none;
 }
-._dib {
+/**
+参照js的String.prototype.padStrarts
+@result:padStarts(foo, 5)[@__];
+结果:00foo
+ */
+/**
+针对浮点数优化的padStarts
+@result:padStarts(foo, 5)[@__];
+结果:00foo
+ */
+/**
+ * 多个range使用
+.eachRange(range(1,5) range(10,15), {
+        hs:@value;
+})
+*/
+.dib {
   display: inline-block;
 }
-._db {
+.db {
   display: block;
 }
-._di {
+.di {
   display: inline;
-}
-._df {
-  display: flex;
 }
 .ff-yh {
   font-family: "\5FAE\8F6F\96C5\9ED1", "Microsoft YaHei", "\9ED1\4F53", "\65B0\5B8B\4F53";
@@ -593,6 +606,12 @@ a {
 .db-i {
   display: block !important;
 }
+.di {
+  display: inline;
+}
+.di-i {
+  display: inline !important;
+}
 .dib {
   display: inline-block;
 }
@@ -776,6 +795,18 @@ a {
 .fx1 {
   flex: 1;
 }
+.fx2 {
+  flex: 2;
+}
+.fx3 {
+  flex: 3;
+}
+.fx4 {
+  flex: 4;
+}
+.fx5 {
+  flex: 5;
+}
 .of.h {
   overflow: hidden;
 }
@@ -821,23 +852,11 @@ a {
 .bl0px-i {
   border-left-width: 0px !important;
 }
-.bd0px {
+.b0px {
   border-width: 0px;
 }
-.bd0px-i {
+.b0px-i {
   border-width: 0px !important;
-}
-.h0px {
-  height: 0px;
-}
-.h0px-i {
-  height: 0px !important;
-}
-.w0px {
-  width: 0px;
-}
-.w0px-i {
-  width: 0px !important;
 }
 .s0px {
   width: 0px;
@@ -883,23 +902,11 @@ a {
 .bl1px-i {
   border-left-width: 1px !important;
 }
-.bd1px {
+.b1px {
   border-width: 1px;
 }
-.bd1px-i {
+.b1px-i {
   border-width: 1px !important;
-}
-.h1px {
-  height: 1px;
-}
-.h1px-i {
-  height: 1px !important;
-}
-.w1px {
-  width: 1px;
-}
-.w1px-i {
-  width: 1px !important;
 }
 .s1px {
   width: 1px;
@@ -945,23 +952,11 @@ a {
 .bl2px-i {
   border-left-width: 2px !important;
 }
-.bd2px {
+.b2px {
   border-width: 2px;
 }
-.bd2px-i {
+.b2px-i {
   border-width: 2px !important;
-}
-.h2px {
-  height: 2px;
-}
-.h2px-i {
-  height: 2px !important;
-}
-.w2px {
-  width: 2px;
-}
-.w2px-i {
-  width: 2px !important;
 }
 .s2px {
   width: 2px;
@@ -1007,23 +1002,11 @@ a {
 .bl3px-i {
   border-left-width: 3px !important;
 }
-.bd3px {
+.b3px {
   border-width: 3px;
 }
-.bd3px-i {
+.b3px-i {
   border-width: 3px !important;
-}
-.h3px {
-  height: 3px;
-}
-.h3px-i {
-  height: 3px !important;
-}
-.w3px {
-  width: 3px;
-}
-.w3px-i {
-  width: 3px !important;
 }
 .s3px {
   width: 3px;
@@ -1069,23 +1052,11 @@ a {
 .bl4px-i {
   border-left-width: 4px !important;
 }
-.bd4px {
+.b4px {
   border-width: 4px;
 }
-.bd4px-i {
+.b4px-i {
   border-width: 4px !important;
-}
-.h4px {
-  height: 4px;
-}
-.h4px-i {
-  height: 4px !important;
-}
-.w4px {
-  width: 4px;
-}
-.w4px-i {
-  width: 4px !important;
 }
 .s4px {
   width: 4px;
@@ -1131,23 +1102,11 @@ a {
 .bl5px-i {
   border-left-width: 5px !important;
 }
-.bd5px {
+.b5px {
   border-width: 5px;
 }
-.bd5px-i {
+.b5px-i {
   border-width: 5px !important;
-}
-.h5px {
-  height: 5px;
-}
-.h5px-i {
-  height: 5px !important;
-}
-.w5px {
-  width: 5px;
-}
-.w5px-i {
-  width: 5px !important;
 }
 .s5px {
   width: 5px;
@@ -1156,6 +1115,30 @@ a {
 .s5px-i {
   width: 5px !important;
   height: 5px !important;
+}
+.b-solid {
+  brder-style: solid;
+}
+.b-solid-i {
+  brder-style: solid !important;
+}
+.b-dotted {
+  brder-style: dotted;
+}
+.b-dotted-i {
+  brder-style: dotted !important;
+}
+.b-dashed {
+  brder-style: dashed;
+}
+.b-dashed-i {
+  brder-style: dashed !important;
+}
+.b-double {
+  brder-style: double;
+}
+.b-double-i {
+  brder-style: double !important;
 }
 .h-auto {
   height: auto;
@@ -1547,10 +1530,10 @@ a {
 .bdr9-i {
   border-radius: 9px !important;
 }
-.brs50p {
+.bdr50p {
   border-radius: 50%;
 }
-.brs50p-i {
+.bdr50p-i {
   border-radius: 50% !important;
 }
 .fw100 {
@@ -12481,113 +12464,29 @@ a {
 .ti00-i {
   text-indent: 0em !important;
 }
-.op10 {
-  opacity: 1;
+.op00 {
+  opacity: 0;
 }
-.op10-i {
-  opacity: 1 !important;
+.op00-i {
+  opacity: 0 !important;
 }
-.op10-hover:hover {
-  opacity: 1;
+.op00-hover:hover {
+  opacity: 0;
 }
-.op10-hover-i:hover {
-  opacity: 1 !important;
+.op00-hover-i:hover {
+  opacity: 0 !important;
 }
-.op09 {
-  opacity: 0.9;
+.op00_5 {
+  opacity: 0.05;
 }
-.op09-i {
-  opacity: 0.9 !important;
+.op00_5-i {
+  opacity: 0.05 !important;
 }
-.op09-hover:hover {
-  opacity: 0.9;
+.op00_5-hover:hover {
+  opacity: 0.05;
 }
-.op09-hover-i:hover {
-  opacity: 0.9 !important;
-}
-.op08 {
-  opacity: 0.8;
-}
-.op08-i {
-  opacity: 0.8 !important;
-}
-.op08-hover:hover {
-  opacity: 0.8;
-}
-.op08-hover-i:hover {
-  opacity: 0.8 !important;
-}
-.op07 {
-  opacity: 0.7;
-}
-.op07-i {
-  opacity: 0.7 !important;
-}
-.op07-hover:hover {
-  opacity: 0.7;
-}
-.op07-hover-i:hover {
-  opacity: 0.7 !important;
-}
-.op06 {
-  opacity: 0.6;
-}
-.op06-i {
-  opacity: 0.6 !important;
-}
-.op06-hover:hover {
-  opacity: 0.6;
-}
-.op06-hover-i:hover {
-  opacity: 0.6 !important;
-}
-.op05 {
-  opacity: 0.5;
-}
-.op05-i {
-  opacity: 0.5 !important;
-}
-.op05-hover:hover {
-  opacity: 0.5;
-}
-.op05-hover-i:hover {
-  opacity: 0.5 !important;
-}
-.op04 {
-  opacity: 0.4;
-}
-.op04-i {
-  opacity: 0.4 !important;
-}
-.op04-hover:hover {
-  opacity: 0.4;
-}
-.op04-hover-i:hover {
-  opacity: 0.4 !important;
-}
-.op03 {
-  opacity: 0.3;
-}
-.op03-i {
-  opacity: 0.3 !important;
-}
-.op03-hover:hover {
-  opacity: 0.3;
-}
-.op03-hover-i:hover {
-  opacity: 0.3 !important;
-}
-.op02 {
-  opacity: 0.2;
-}
-.op02-i {
-  opacity: 0.2 !important;
-}
-.op02-hover:hover {
-  opacity: 0.2;
-}
-.op02-hover-i:hover {
-  opacity: 0.2 !important;
+.op00_5-hover-i:hover {
+  opacity: 0.05 !important;
 }
 .op01 {
   opacity: 0.1;
@@ -12601,168 +12500,233 @@ a {
 .op01-hover-i:hover {
   opacity: 0.1 !important;
 }
-.op00 {
-  opacity: 0;
+.op01_5 {
+  opacity: 0.15;
 }
-.op00-i {
-  opacity: 0 !important;
+.op01_5-i {
+  opacity: 0.15 !important;
 }
-.op00-hover:hover {
-  opacity: 0;
+.op01_5-hover:hover {
+  opacity: 0.15;
 }
-.op00-hover-i:hover {
-  opacity: 0 !important;
+.op01_5-hover-i:hover {
+  opacity: 0.15 !important;
 }
-/*缩放 .scale01.scale10*/
-.scale33 {
-  transform: scale(3.3);
+.op02 {
+  opacity: 0.2;
 }
-.scale33-i {
-  transform: scale(3.3) !important;
+.op02-i {
+  opacity: 0.2 !important;
 }
-.scale30 {
-  transform: scale(3);
+.op02-hover:hover {
+  opacity: 0.2;
 }
-.scale30-i {
-  transform: scale(3) !important;
+.op02-hover-i:hover {
+  opacity: 0.2 !important;
 }
-.scale30 {
-  transform: scale(3);
+.op02_5 {
+  opacity: 0.25;
 }
-.scale30-i {
-  transform: scale(3) !important;
+.op02_5-i {
+  opacity: 0.25 !important;
 }
-.scale27 {
-  transform: scale(2.7);
+.op02_5-hover:hover {
+  opacity: 0.25;
 }
-.scale27-i {
-  transform: scale(2.7) !important;
+.op02_5-hover-i:hover {
+  opacity: 0.25 !important;
 }
-.scale24 {
-  transform: scale(2.4);
+.op03 {
+  opacity: 0.3;
 }
-.scale24-i {
-  transform: scale(2.4) !important;
+.op03-i {
+  opacity: 0.3 !important;
 }
-.scale20 {
-  transform: scale(2);
+.op03-hover:hover {
+  opacity: 0.3;
 }
-.scale20-i {
-  transform: scale(2) !important;
+.op03-hover-i:hover {
+  opacity: 0.3 !important;
 }
-.scale18 {
-  transform: scale(1.8);
+.op03_5 {
+  opacity: 0.35;
 }
-.scale18-i {
-  transform: scale(1.8) !important;
+.op03_5-i {
+  opacity: 0.35 !important;
 }
-.scale17d5 {
-  transform: scale(1.75);
+.op03_5-hover:hover {
+  opacity: 0.35;
 }
-.scale17d5-i {
-  transform: scale(1.75) !important;
+.op03_5-hover-i:hover {
+  opacity: 0.35 !important;
 }
-.scale15 {
-  transform: scale(1.5);
+.op04 {
+  opacity: 0.4;
 }
-.scale15-i {
-  transform: scale(1.5) !important;
+.op04-i {
+  opacity: 0.4 !important;
 }
-.scale14 {
-  transform: scale(1.4);
+.op04-hover:hover {
+  opacity: 0.4;
 }
-.scale14-i {
-  transform: scale(1.4) !important;
+.op04-hover-i:hover {
+  opacity: 0.4 !important;
 }
-.scale13 {
-  transform: scale(1.3);
+.op04_5 {
+  opacity: 0.45;
 }
-.scale13-i {
-  transform: scale(1.3) !important;
+.op04_5-i {
+  opacity: 0.45 !important;
 }
-.scale12d5 {
-  transform: scale(1.25);
+.op04_5-hover:hover {
+  opacity: 0.45;
 }
-.scale12d5-i {
-  transform: scale(1.25) !important;
+.op04_5-hover-i:hover {
+  opacity: 0.45 !important;
 }
-.scale12 {
-  transform: scale(1.2);
+.op05 {
+  opacity: 0.5;
 }
-.scale12-i {
-  transform: scale(1.2) !important;
+.op05-i {
+  opacity: 0.5 !important;
 }
-.scale11d5 {
-  transform: scale(1.15);
+.op05-hover:hover {
+  opacity: 0.5;
 }
-.scale11d5-i {
-  transform: scale(1.15) !important;
+.op05-hover-i:hover {
+  opacity: 0.5 !important;
 }
-.scale11 {
-  transform: scale(1.1);
+.op05_5 {
+  opacity: 0.55;
 }
-.scale11-i {
-  transform: scale(1.1) !important;
+.op05_5-i {
+  opacity: 0.55 !important;
 }
-.scale10d5 {
-  transform: scale(1.05);
+.op05_5-hover:hover {
+  opacity: 0.55;
 }
-.scale10d5-i {
-  transform: scale(1.05) !important;
+.op05_5-hover-i:hover {
+  opacity: 0.55 !important;
 }
-.scale10 {
-  transform: scale(1);
+.op06 {
+  opacity: 0.6;
 }
-.scale10-i {
-  transform: scale(1) !important;
+.op06-i {
+  opacity: 0.6 !important;
 }
-.scale075 {
-  transform: scale(0.75);
+.op06-hover:hover {
+  opacity: 0.6;
 }
-.scale075-i {
-  transform: scale(0.75) !important;
+.op06-hover-i:hover {
+  opacity: 0.6 !important;
 }
-.scale09 {
-  transform: scale(0.9);
+.op06_5 {
+  opacity: 0.65;
 }
-.scale09-i {
-  transform: scale(0.9) !important;
+.op06_5-i {
+  opacity: 0.65 !important;
 }
-.scale085 {
-  transform: scale(0.85);
+.op06_5-hover:hover {
+  opacity: 0.65;
 }
-.scale085-i {
-  transform: scale(0.85) !important;
+.op06_5-hover-i:hover {
+  opacity: 0.65 !important;
 }
-.scale08 {
-  transform: scale(0.8);
+.op07 {
+  opacity: 0.7;
 }
-.scale08-i {
-  transform: scale(0.8) !important;
+.op07-i {
+  opacity: 0.7 !important;
 }
-.scale07 {
-  transform: scale(0.7);
+.op07-hover:hover {
+  opacity: 0.7;
 }
-.scale07-i {
-  transform: scale(0.7) !important;
+.op07-hover-i:hover {
+  opacity: 0.7 !important;
 }
-.scale06 {
-  transform: scale(0.6);
+.op07_5 {
+  opacity: 0.75;
 }
-.scale06-i {
-  transform: scale(0.6) !important;
+.op07_5-i {
+  opacity: 0.75 !important;
 }
-.scale05 {
-  transform: scale(0.5);
+.op07_5-hover:hover {
+  opacity: 0.75;
 }
-.scale05-i {
-  transform: scale(0.5) !important;
+.op07_5-hover-i:hover {
+  opacity: 0.75 !important;
 }
-.scale04 {
-  transform: scale(0.4);
+.op08 {
+  opacity: 0.8;
 }
-.scale04-i {
-  transform: scale(0.4) !important;
+.op08-i {
+  opacity: 0.8 !important;
+}
+.op08-hover:hover {
+  opacity: 0.8;
+}
+.op08-hover-i:hover {
+  opacity: 0.8 !important;
+}
+.op08_5 {
+  opacity: 0.85;
+}
+.op08_5-i {
+  opacity: 0.85 !important;
+}
+.op08_5-hover:hover {
+  opacity: 0.85;
+}
+.op08_5-hover-i:hover {
+  opacity: 0.85 !important;
+}
+.op09 {
+  opacity: 0.9;
+}
+.op09-i {
+  opacity: 0.9 !important;
+}
+.op09-hover:hover {
+  opacity: 0.9;
+}
+.op09-hover-i:hover {
+  opacity: 0.9 !important;
+}
+.op09_5 {
+  opacity: 0.95;
+}
+.op09_5-i {
+  opacity: 0.95 !important;
+}
+.op09_5-hover:hover {
+  opacity: 0.95;
+}
+.op09_5-hover-i:hover {
+  opacity: 0.95 !important;
+}
+.op10 {
+  opacity: 1;
+}
+.op10-i {
+  opacity: 1 !important;
+}
+.op10-hover:hover {
+  opacity: 1;
+}
+.op10-hover-i:hover {
+  opacity: 1 !important;
+}
+.scale00 {
+  transform: scale(0);
+}
+.scale00-i {
+  transform: scale(0) !important;
+}
+.scale00-hover:hover {
+  transform: scale(0);
+}
+.scale00-hover-i:hover {
+  transform: scale(0) !important;
 }
 .scale03 {
   transform: scale(0.3);
@@ -12770,18 +12734,529 @@ a {
 .scale03-i {
   transform: scale(0.3) !important;
 }
+.scale03-hover:hover {
+  transform: scale(0.3);
+}
+.scale03-hover-i:hover {
+  transform: scale(0.3) !important;
+}
+.scale06 {
+  transform: scale(0.6);
+}
+.scale06-i {
+  transform: scale(0.6) !important;
+}
+.scale06-hover:hover {
+  transform: scale(0.6);
+}
+.scale06-hover-i:hover {
+  transform: scale(0.6) !important;
+}
+.scale09 {
+  transform: scale(0.9);
+}
+.scale09-i {
+  transform: scale(0.9) !important;
+}
+.scale09-hover:hover {
+  transform: scale(0.9);
+}
+.scale09-hover-i:hover {
+  transform: scale(0.9) !important;
+}
+.scale12 {
+  transform: scale(1.2);
+}
+.scale12-i {
+  transform: scale(1.2) !important;
+}
+.scale12-hover:hover {
+  transform: scale(1.2);
+}
+.scale12-hover-i:hover {
+  transform: scale(1.2) !important;
+}
+.scale15 {
+  transform: scale(1.5);
+}
+.scale15-i {
+  transform: scale(1.5) !important;
+}
+.scale15-hover:hover {
+  transform: scale(1.5);
+}
+.scale15-hover-i:hover {
+  transform: scale(1.5) !important;
+}
+.scale18 {
+  transform: scale(1.8);
+}
+.scale18-i {
+  transform: scale(1.8) !important;
+}
+.scale18-hover:hover {
+  transform: scale(1.8);
+}
+.scale18-hover-i:hover {
+  transform: scale(1.8) !important;
+}
+.scale21 {
+  transform: scale(2.1);
+}
+.scale21-i {
+  transform: scale(2.1) !important;
+}
+.scale21-hover:hover {
+  transform: scale(2.1);
+}
+.scale21-hover-i:hover {
+  transform: scale(2.1) !important;
+}
+.scale24 {
+  transform: scale(2.4);
+}
+.scale24-i {
+  transform: scale(2.4) !important;
+}
+.scale24-hover:hover {
+  transform: scale(2.4);
+}
+.scale24-hover-i:hover {
+  transform: scale(2.4) !important;
+}
+.scale27 {
+  transform: scale(2.7);
+}
+.scale27-i {
+  transform: scale(2.7) !important;
+}
+.scale27-hover:hover {
+  transform: scale(2.7);
+}
+.scale27-hover-i:hover {
+  transform: scale(2.7) !important;
+}
+.scale30 {
+  transform: scale(3);
+}
+.scale30-i {
+  transform: scale(3) !important;
+}
+.scale30-hover:hover {
+  transform: scale(3);
+}
+.scale30-hover-i:hover {
+  transform: scale(3) !important;
+}
+.scale33 {
+  transform: scale(3.3);
+}
+.scale33-i {
+  transform: scale(3.3) !important;
+}
+.scale33-hover:hover {
+  transform: scale(3.3);
+}
+.scale33-hover-i:hover {
+  transform: scale(3.3) !important;
+}
+.scale36 {
+  transform: scale(3.6);
+}
+.scale36-i {
+  transform: scale(3.6) !important;
+}
+.scale36-hover:hover {
+  transform: scale(3.6);
+}
+.scale36-hover-i:hover {
+  transform: scale(3.6) !important;
+}
+.scale00 {
+  transform: scale(0);
+}
+.scale00-i {
+  transform: scale(0) !important;
+}
+.scale00-hover:hover {
+  transform: scale(0);
+}
+.scale00-hover-i:hover {
+  transform: scale(0) !important;
+}
 .scale02 {
   transform: scale(0.2);
 }
 .scale02-i {
   transform: scale(0.2) !important;
 }
-.scale01 {
-  transform: scale(0.1);
+.scale02-hover:hover {
+  transform: scale(0.2);
 }
-.scale01-i {
-  transform: scale(0.1) !important;
+.scale02-hover-i:hover {
+  transform: scale(0.2) !important;
 }
+.scale04 {
+  transform: scale(0.4);
+}
+.scale04-i {
+  transform: scale(0.4) !important;
+}
+.scale04-hover:hover {
+  transform: scale(0.4);
+}
+.scale04-hover-i:hover {
+  transform: scale(0.4) !important;
+}
+.scale06 {
+  transform: scale(0.6);
+}
+.scale06-i {
+  transform: scale(0.6) !important;
+}
+.scale06-hover:hover {
+  transform: scale(0.6);
+}
+.scale06-hover-i:hover {
+  transform: scale(0.6) !important;
+}
+.scale08 {
+  transform: scale(0.8);
+}
+.scale08-i {
+  transform: scale(0.8) !important;
+}
+.scale08-hover:hover {
+  transform: scale(0.8);
+}
+.scale08-hover-i:hover {
+  transform: scale(0.8) !important;
+}
+.scale10 {
+  transform: scale(1);
+}
+.scale10-i {
+  transform: scale(1) !important;
+}
+.scale10-hover:hover {
+  transform: scale(1);
+}
+.scale10-hover-i:hover {
+  transform: scale(1) !important;
+}
+.scale12 {
+  transform: scale(1.2);
+}
+.scale12-i {
+  transform: scale(1.2) !important;
+}
+.scale12-hover:hover {
+  transform: scale(1.2);
+}
+.scale12-hover-i:hover {
+  transform: scale(1.2) !important;
+}
+.scale14 {
+  transform: scale(1.4);
+}
+.scale14-i {
+  transform: scale(1.4) !important;
+}
+.scale14-hover:hover {
+  transform: scale(1.4);
+}
+.scale14-hover-i:hover {
+  transform: scale(1.4) !important;
+}
+.scale16 {
+  transform: scale(1.6);
+}
+.scale16-i {
+  transform: scale(1.6) !important;
+}
+.scale16-hover:hover {
+  transform: scale(1.6);
+}
+.scale16-hover-i:hover {
+  transform: scale(1.6) !important;
+}
+.scale18 {
+  transform: scale(1.8);
+}
+.scale18-i {
+  transform: scale(1.8) !important;
+}
+.scale18-hover:hover {
+  transform: scale(1.8);
+}
+.scale18-hover-i:hover {
+  transform: scale(1.8) !important;
+}
+.scale20 {
+  transform: scale(2);
+}
+.scale20-i {
+  transform: scale(2) !important;
+}
+.scale20-hover:hover {
+  transform: scale(2);
+}
+.scale20-hover-i:hover {
+  transform: scale(2) !important;
+}
+.scale05 {
+  transform: scale(0.5);
+}
+.scale05-i {
+  transform: scale(0.5) !important;
+}
+.scale05-hover:hover {
+  transform: scale(0.5);
+}
+.scale05-hover-i:hover {
+  transform: scale(0.5) !important;
+}
+.scale05_5 {
+  transform: scale(0.55);
+}
+.scale05_5-i {
+  transform: scale(0.55) !important;
+}
+.scale05_5-hover:hover {
+  transform: scale(0.55);
+}
+.scale05_5-hover-i:hover {
+  transform: scale(0.55) !important;
+}
+.scale06 {
+  transform: scale(0.6);
+}
+.scale06-i {
+  transform: scale(0.6) !important;
+}
+.scale06-hover:hover {
+  transform: scale(0.6);
+}
+.scale06-hover-i:hover {
+  transform: scale(0.6) !important;
+}
+.scale06_5 {
+  transform: scale(0.65);
+}
+.scale06_5-i {
+  transform: scale(0.65) !important;
+}
+.scale06_5-hover:hover {
+  transform: scale(0.65);
+}
+.scale06_5-hover-i:hover {
+  transform: scale(0.65) !important;
+}
+.scale07 {
+  transform: scale(0.7);
+}
+.scale07-i {
+  transform: scale(0.7) !important;
+}
+.scale07-hover:hover {
+  transform: scale(0.7);
+}
+.scale07-hover-i:hover {
+  transform: scale(0.7) !important;
+}
+.scale07_5 {
+  transform: scale(0.75);
+}
+.scale07_5-i {
+  transform: scale(0.75) !important;
+}
+.scale07_5-hover:hover {
+  transform: scale(0.75);
+}
+.scale07_5-hover-i:hover {
+  transform: scale(0.75) !important;
+}
+.scale08 {
+  transform: scale(0.8);
+}
+.scale08-i {
+  transform: scale(0.8) !important;
+}
+.scale08-hover:hover {
+  transform: scale(0.8);
+}
+.scale08-hover-i:hover {
+  transform: scale(0.8) !important;
+}
+.scale08_5 {
+  transform: scale(0.85);
+}
+.scale08_5-i {
+  transform: scale(0.85) !important;
+}
+.scale08_5-hover:hover {
+  transform: scale(0.85);
+}
+.scale08_5-hover-i:hover {
+  transform: scale(0.85) !important;
+}
+.scale09 {
+  transform: scale(0.9);
+}
+.scale09-i {
+  transform: scale(0.9) !important;
+}
+.scale09-hover:hover {
+  transform: scale(0.9);
+}
+.scale09-hover-i:hover {
+  transform: scale(0.9) !important;
+}
+.scale09_5 {
+  transform: scale(0.95);
+}
+.scale09_5-i {
+  transform: scale(0.95) !important;
+}
+.scale09_5-hover:hover {
+  transform: scale(0.95);
+}
+.scale09_5-hover-i:hover {
+  transform: scale(0.95) !important;
+}
+.scale10 {
+  transform: scale(1);
+}
+.scale10-i {
+  transform: scale(1) !important;
+}
+.scale10-hover:hover {
+  transform: scale(1);
+}
+.scale10-hover-i:hover {
+  transform: scale(1) !important;
+}
+.scale10_5 {
+  transform: scale(1.05);
+}
+.scale10_5-i {
+  transform: scale(1.05) !important;
+}
+.scale10_5-hover:hover {
+  transform: scale(1.05);
+}
+.scale10_5-hover-i:hover {
+  transform: scale(1.05) !important;
+}
+.scale11 {
+  transform: scale(1.1);
+}
+.scale11-i {
+  transform: scale(1.1) !important;
+}
+.scale11-hover:hover {
+  transform: scale(1.1);
+}
+.scale11-hover-i:hover {
+  transform: scale(1.1) !important;
+}
+.scale11_5 {
+  transform: scale(1.15);
+}
+.scale11_5-i {
+  transform: scale(1.15) !important;
+}
+.scale11_5-hover:hover {
+  transform: scale(1.15);
+}
+.scale11_5-hover-i:hover {
+  transform: scale(1.15) !important;
+}
+.scale12 {
+  transform: scale(1.2);
+}
+.scale12-i {
+  transform: scale(1.2) !important;
+}
+.scale12-hover:hover {
+  transform: scale(1.2);
+}
+.scale12-hover-i:hover {
+  transform: scale(1.2) !important;
+}
+.scale12_5 {
+  transform: scale(1.25);
+}
+.scale12_5-i {
+  transform: scale(1.25) !important;
+}
+.scale12_5-hover:hover {
+  transform: scale(1.25);
+}
+.scale12_5-hover-i:hover {
+  transform: scale(1.25) !important;
+}
+.scale13 {
+  transform: scale(1.3);
+}
+.scale13-i {
+  transform: scale(1.3) !important;
+}
+.scale13-hover:hover {
+  transform: scale(1.3);
+}
+.scale13-hover-i:hover {
+  transform: scale(1.3) !important;
+}
+.scale13_5 {
+  transform: scale(1.35);
+}
+.scale13_5-i {
+  transform: scale(1.35) !important;
+}
+.scale13_5-hover:hover {
+  transform: scale(1.35);
+}
+.scale13_5-hover-i:hover {
+  transform: scale(1.35) !important;
+}
+.scale14 {
+  transform: scale(1.4);
+}
+.scale14-i {
+  transform: scale(1.4) !important;
+}
+.scale14-hover:hover {
+  transform: scale(1.4);
+}
+.scale14-hover-i:hover {
+  transform: scale(1.4) !important;
+}
+.scale14_5 {
+  transform: scale(1.45);
+}
+.scale14_5-i {
+  transform: scale(1.45) !important;
+}
+.scale14_5-hover:hover {
+  transform: scale(1.45);
+}
+.scale14_5-hover-i:hover {
+  transform: scale(1.45) !important;
+}
+.scale15 {
+  transform: scale(1.5);
+}
+.scale15-i {
+  transform: scale(1.5) !important;
+}
+.scale15-hover:hover {
+  transform: scale(1.5);
+}
+.scale15-hover-i:hover {
+  transform: scale(1.5) !important;
+}
+/*缩放 .scale01.scale10*/
 .w100p {
   width: 100%;
 }

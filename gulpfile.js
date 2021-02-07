@@ -4,6 +4,8 @@ var rename = require('gulp-rename');
 const rm = require("rimraf");
 const cssmin = require('gulp-minify-css');
 const sourcemaps = require('gulp-sourcemaps');
+const cleanCSS = require('gulp-clean-css');
+
 
 const {watch, task, series, parallel} = gulp;
 
@@ -16,7 +18,7 @@ function swallowError(error){
 
 gulp.task("build-less",async function(){
     await new Promise(resolve=> rm("dist", resolve));
-    return gulp
+    await gulp
         .src("src/dist-index.less")
         .pipe(less({
 
@@ -27,8 +29,23 @@ gulp.task("build-less",async function(){
         .pipe(
             gulp.dest("dist")
         )
-        //兼容IE7及以下需设置compatibility属性 .pipe(cssmin({compatibility: 'ie7'}))
-        .pipe(cssmin())
+        .pipe(
+            cleanCSS({
+                backgroundClipMerging: true, // controls background-clip merging into shorthand
+                backgroundOriginMerging: true, // controls background-origin merging into shorthand
+                backgroundSizeMerging: true, // controls background-size merging into shorthand
+                colors: true, // controls color optimizations
+                ieBangHack: false, // controls keeping IE bang hack
+                ieFilters: false, // controls keeping IE `filter` / `-ms-filter`
+                iePrefixHack: false, // controls keeping IE prefix hack
+                ieSuffixHack: false, // controls keeping IE suffix hack
+                merging: true, // controls property merging based on understandability
+                shorterLengthUnits: false, // controls shortening pixel units into `pc`, `pt`, or `in` units
+                spaceAfterClosingBrace: true, // controls keeping space after closing brace - `url() no-repeat` into `url()no-repeat`
+                urlQuotes: true, // controls keeping quoting inside `url()`
+                zeroUnits: true // controls removal of units `0` value
+            })
+        )
         .on("error",swallowError)
         .pipe(rename(function(file){
            file.basename = "index";

@@ -51,823 +51,21 @@
     user-select: none;
 }
 
+@import "rule-utils";
 
-//设置了单位
-.__write(@key,@value,@defaultUnit:px) when not(get-unit(@value)=~"") or not(isnumber(@value)){
-        @{key}:@value;
-}
+@import (once) "vars";
 
 
-//没有设置单位的情况
-.__write(@key,@value,@defaultUnit:px) when(get-unit(@value)=~"") and (isnumber(@value)){
-        @{key}:unit(@value,@defaultUnit);
-}
+.dib{display: inline-block;}
 
+.db{display: block;}
 
-
-.__class_write(@className,@keyList,@valueList){
-    .@{className}{
-        .__writes(@keyList,@valueList);
-    }
-}
-
-.__class_write_with_important(@className,@keyList,@valueList){
-    .__class_write(@className,@keyList,@valueList);
-    .__class_write(~"@{className}-i",@keyList,@valueList) !important;
-}
-
-.__writes(@keyList,@value) when (length(@value)=1){
-    @leng:length(@keyList);
-    ._loop(@n) when(@n<=@leng){
-        @key:extract(@keyList,@n);
-        .__write(@key,@value,~"");
-        ._loop(@n + 1);
-    }
-    ._loop(1)
-}
-
-.__writes(@keyList, @valueList) when (length(@valueList)>1){
-    @leng:length(@keyList);
-    ._loop(@n) when(@n<=@leng){
-        @key:extract(@keyList,@n);
-        @value:extract(@valueList,@n);
-        .__write(@key,@value,~"");
-        ._loop(@n + 1);
-    }
-    ._loop(1)
-}
-
-
-
-//透明度调整
-._alpha(@val:80){ opacity: @val * 0.01; filter: alpha(opacity=@val); }
-._op(@value){._alpha(@value * 100)}
-
-//横向padding
-._ph(@value:auto){padding-left: @value; padding-right: @value;}
-//纵向padding
-._pv(@value:auto){padding-top: @value; padding-bottom: @value;}
-//横向margin
-._mh(@value:auto){margin-left: @value; margin-right: @value;}
-//纵向margin
-._mv(@value:auto){margin-top: @value; margin-bottom: @value;}
-
-
-//block尺寸，同时设置长宽
-._size(@size){._size(@size,@size)}
-._size(@width,@height){
-    .__write(width,@width,px);
-    .__write(height,@height,px);
-}
-
-//设置高度时，同时设置line-height
-._size_lh(@width,@height){
-    ._size(@width,@height);
-    .__write(line-height,@height,px)
-}
-
-._size_lh(@s){
-    ._size_lh(@s,@s)
-}
-
-
-//设置尺寸时候，同时设置margin没size尺寸的一般（负）
-._size_rever_margin(@width,@height){
-    ._size(@width,@height);
-    margin-left:-@width/2;
-    margin-top :-@height/2;
-}
-
-._size_rever_margin(@size){
-    ._size_rever_margin(@size,@size);
-}
-
-
-._size_revert_margin_lh(@width,@height){
-    ._size_rever_margin(@width,@height);
-    line-height: @height;
-}
-
-._size_revert_margin_lh(@size){
-    ._size_revert_margin_lh(@size,@size);
-}
-
-._fillin(@value:0){
-    .__writes(left top right bottom, @value)
-}
-
-._dib{display: inline-block;}
-
-._db{display: block;}
-
-._di{display: inline;}
-
-._df{display: flex;}
-
-
-//reset;
-.reset(){
-    html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
-    img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
-    tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section,
-    summary,time, mark, audio, video {
-        margin: 0;padding: 0;border: 0;font-size: 100%;font-family: inherit;vertical-align: baseline;
-    }
-
-    h1, h2, h3, h4, h5, h6{ font-weight: 700;}
-
-    /* HTML5 display-role reset for older browsers */
-    article, aside, details, figcaption, figure, footer, header, menu, nav, section { display: block;}
-    body {line-height: 1; font-size: 12px;}
-    ol, ul{ list-style: none; }
-    blockquote, q {quotes: none;}
-    blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}table {border-collapse: collapse;border-spacing: 0;}
-
-    i,em{font-style: normal;}
-    a{ text-decoration: none;}
-}
-
-
-//ie旋转
-//@ang只支持deg
-._ieRotate(@ang,@width,@height){
-    @deg:pi()*2 - unit(convert(unit(@ang,deg),"rad"));          //ie角度正好和w3c旋转相反
-    @sin:sin(@deg);
-    @cos:cos(@deg);
-    @fsin:-@sin;
-    @fcos:-@cos;
-
-    @w:unit(@width);
-    @h:unit(@height);
-    @dx:-@w/2*@cos+@h/2*@sin+@w/2;
-    @dy:-@w/2*@sin - @h/2*@cos+@h/2;
-
-    filter:progid:DXImageTransform.Microsoft.Matrix(Dx=@dx, Dy=@dy,M11=@cos,M12=@sin,M21=@fsin,M22=@cos,sizingMethod="auto expand");
-}
-
-//ie 的旋转
-._ieRotate(@ang,@size){
-    .ieRotate(@ang, @size, @size);
-}
-
-
-
-//形成三角
-.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent){
-    border: @size solid @blankColor;
-    border-@{dir}-width: 0;
-    ._size_lh(0);
-    ._dib;
-
-
-    .____write() when(@dir=right){border-left-color:@color;}
-    .____write() when(@dir=bottom){border-top-color:@color;}
-    .____write() when(@dir=left){border-right-color:@color;}
-    .____write() when(@dir=top){border-bottom-color:@color;}
-    .____write;
-}
-
-//形成斜三角(45整数倍三角)
-.triangle45(@size,@dira:left,@dirb:bottom,@color:#08c,@blankColor:transparent){
-    border: @blankColor solid @size/2;
-    border-@{dira}-color:@color;
-    border-@{dirb}-color:@color;
-    line-height: 0;
-    font-size: 0;
-    ._size(0);
-    &:extend(.dib);
-}
-//----形成三角
-
-
-
-//用来生一个宽度序列
-//参数1 @main_w有三种形式
-//  形式1:1000px              表示总宽度为1000,单元格间距为0
-//  形式2:1000px 12px         表示总宽度为1000,单元格间距为12px，无两边空白
-//  形式3:1000px _12px        表示总宽度为1000,单元格间距为12px，两边有空白
-//参数2 @col_width_list 传入1-(n-1)各单元格宽度,最后一个单元格宽度由计算获得
-//举例 .row1{.gen_grid(1000px 10px,60px,100px,90px,88px, 180px); >*{.iblock};}
-.gen_grid(@main_w__gap,@col_width_list){
-    @leng:length(@col_width_list);
-
-    //分析第一参数
-    @p_list:`(function(index){
-		index = index || 0;
-		var para = "@{main_w__gap}".replace(/\[|\]|,/g,"");
-		var leng = @{leng};
-		var ar = para.split(" ");
-		ar[1] = ar[1] || "0px";
-		var main_w = ar[0];
-		var gap_w=ar[1].replace(/^_|\-/,"");
-		if(/^\_/.test(ar[1])){
-			leng = leng + 2;
-		}else{
-			leng = leng;
-		}
-		var resultList = [main_w, gap_w,leng];
-		return resultList[index-1];
-	})`;
-
-    //提取参数1的定义
-    @main_w:~`@{p_list}(1)`;
-    @gap_w:~`@{p_list}(2)`;
-    @gap_num:~`@{p_list}(3)`;
-
-
-    //计算最后一个单元格宽度
-    @last_w:~`(function(){
-		var arg = eval("@{col_width_list}".replace(/px/g,""));
-		var main_w = parseInt("@{main_w}");
-
-		var gap_num = @{gap_num};
-		var gap_w = parseInt("@{gap_w}");
-		var w=0;
-
-		//只有两列的情况
-		if(arg.length === undefined) arg = [arg];
-
-		arg.map(function(n){
-			w+=n;
-		});
-
-		var lstw = (main_w - w - gap_num*gap_w);
-		bindvar("gd.lastw",lstw);
-		return lstw;
-	})()`;
-
-
-
-
-    width:~`(function(){
-		var main_w = parseInt("@{main_w}");
-		var gap_num = @{gap_num};
-		var leng = @{leng};
-		var gap_w = parseInt("@{gap_w}");
-
-
-		if(gap_num>leng){
-			return (main_w - gap_w) + "px; padding-left:" + gap_w + "px";
-		}else{
-			return main_w + "px";
-		}
-	})()`;
-
-
-    //定义循环
-    .gen_grid_loop(@times,@paras) when(@times >0){
-        .gen_grid_loop(@times - 1, @paras);
-        >.cell-@{times}{
-            width: extract(@paras,@times);
-            margin-right: @gap_w;
-        }
-    }
-
-    //生成1-(n-1)的宽度
-    .gen_grid_loop(@leng , @col_width_list);
-
-    //生成n的宽度
-    @leng_p1:@leng+1;
-    >.cell-last,>.cell-@{leng_p1}{
-        width:unit(@last_w,px);
-    }
-
-    //消除间隔
-    font-size: 0;
-    //white-space: normal;
-
-    //对单元格的一些公共设置
-    >*{
-        &:extend(.dib); font-size: @fsize;
-    }
-}
-
-.gen_grid_line(@main_w__gap,@col_width_list){
-    .gen_grid(@main_w__gap,@col_width_list);
-    white-space: nowrap;
-    >*{white-space: normal;}
-}
-
-//
-._colsets(@colList,@fullWidth,@innerGap:0,@edgeGap:0){
-    @leng:@length(@colList);
-
-
-    @lastWidth:@fullWidth;
-    ._loop(@n) when(@n<=@length){
-        @w:extract(@colList,@n);
-
-        //@lastWidth
-
-        >*:nth-child(@{n}){
-            width:@w;
-            margin-right: @innerGap;
-        }
-
-        ._loop(@n+1);
-    }
-    ._loop(1);
-}
-
-
-//生成列均等的网格布局
-//@main_width整体宽度
-//@gap间隔
-//@n网格猎数
-//@edge_gap间隔是否在边沿
-//@cell_width_offset宽度微调
-._gen_grid_average(@main_width,@n,@gap:0,@edge_gap:false,@cell_width_offset:0){
-    .gen_comm(){
-        padding-top: @gap;
-        padding-bottom: @gap;
-        //margin-left: -@gap/2;
-        text-indent: 0;
-        left: -@gap/2;
-        position: relative;
-        font-size: 0;
-
-        >*{
-            &:extend(.dib);
-            font-size: 14px;
-            min-height: @gap;
-            margin-bottom: @gap;
-            .margin_h(@gap/2);
-        }
-    }
-    .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = true){
-        @cellw:(@main_width - (@n + 1)*@gap)/@n + @cell_width_offset;
-        width: @main_width;
-        padding-left: @gap;
-        >*{
-            width: @cellw;
-        }
-    }
-
-    .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = false){
-        @cellw:(@main_width - (@n)*@gap)/@n + @cell_width_offset;
-        width: @main_width + @gap;
-
-        >*{
-            width: @cellw;
-        }
-    }
-
-    .gen_comm;
-    .gen(@main_width,@gap,@n,@edge_gap);
-
-}
-
-
-//半透明背景，兼容ie
-._bgcolor_alpha(@bgcolor: rgba(0,0,0,.51)){
-    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr = argb(@bgcolor), endColorstr=argb(@bgcolor));
-    background-color:@bgcolor;
-}
-
-._bgcolor_alpha(@rgb,@alpha){
-    @rgba:~`(function(){
-		var obj = __get_rgba_object('@{rgb}',@{alpha});
-		return getRGBA('@{rgb}',@{alpha});
-	})(this)`;
-
-    @argb_16:~`(function(){
-		return getARGB('@{rgb}',@{alpha})
-	})(this)`;
-
-    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr= @argb_16, endColorstr=@argb_16);
-    background-color:@rgba;
-}
-
-
-//bootstrap对屏幕尺寸的区分
-
-// Phone
-@screen-xs:                  480px;
-@screen-xs-min:              @screen-xs;
-@screen-phone:               @screen-xs-min;
-
-// Small screen / tablet
-@screen-sm:                  768px;
-@screen-sm-min:              @screen-sm;
-@screen-tablet:              @screen-sm-min;
-
-// Medium screen / desktop
-@screen-md:                  992px;
-@screen-md-min:              @screen-md;
-@screen-desktop:             @screen-md-min;
-
-// Large screen / wide desktop
-@screen-lg:                  1200px;
-@screen-lg-min:              @screen-lg;
-@screen-lg-desktop:          @screen-lg-min;
-
-
-
-
-@screen-xs-max:              (@screen-sm-min - 1);
-@screen-sm-max:              (@screen-md-min - 1);
-
-
-@gap:12px;
-@g:12px;
-@fs:14px;
-
-@cl_flat_green:#01BF9D;
-@cl_flat_green1:#01A187;
-
-@cl_flat_greenn:#1FCF6D;
-@cl_flat_greenn1:#1BAE5D;
-
-@cl_flat_blue:#5BABE6;
-@cl_flat_blue1:#217FBC;
-
-@cl_flat_purple:#9C56B9;
-@cl_flat_purple1:#913EB0;
-
-@cl_flat_black:#334960;
-@cl_flat_black1:#2D3D54;
-
-@cl_flat_yellow:#F3C500;
-@cl_flat_yellow1:#F59C00;
-
-@cl_flat_orange:#E87E04;
-@cl_flat_orange1:#D65400;
-
-@cl_flat_red:#EA4B35;
-@cl_flat_red1:#C43926;
-
-@cl_flat_light:#ECF0F1;
-@cl_flat_light1:#BEC3C7;
-
-@cl_flat_gray:#95A5A5;
-@cl_flat_gray1:#7E8C8D;
-
-
-
-//https://github.com/raphaelameaume/gsap-easings-css/blob/master/easings.less
-//加入timing function
-@Power0EaseNone: cubic-bezier(0.250, 0.250, 0.750, 0.750);
-
-@Power1EaseIn: cubic-bezier(0.550, 0.085, 0.680, 0.530);
-@Power1EaseOut: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-@Power1EaseInOut: cubic-bezier(0.455, 0.030, 0.515, 0.955);
-
-@Power2EaseIn: cubic-bezier(0.550, 0.055, 0.675, 0.190);
-@Power2EaseOut: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-@Power2EaseInOut: cubic-bezier(0.645, 0.045, 0.355, 1.000);
-
-@Power3EaseIn: cubic-bezier(0.895, 0.030, 0.685, 0.220);
-@Power3EaseOut: cubic-bezier(0.165, 0.840, 0.440, 1.000);
-@Power3EaseInOut: cubic-bezier(0.770, 0.000, 0.175, 1.000);
-
-@Power4EaseIn: cubic-bezier(0.755, 0.050, 0.855, 0.060);
-@Power4EaseOut: cubic-bezier(0.230, 1.000, 0.320, 1.000);
-@Power4EaseInOut: cubic-bezier(0.860, 0.000, 0.070, 1.000);
-
-@CircEaseIn: cubic-bezier(0.600, 0.040, 0.980, 0.335);
-@CircEaseOut: cubic-bezier(0.075, 0.820, 0.165, 1.000); // wip
-@CircEaseInOut: cubic-bezier(0.785, 0.135, 0.150, 0.860); // wip
-
-@ExpoEaseIn: cubic-bezier(0.950, 0.050, 0.795, 0.035);
-@ExpoEaseOut: cubic-bezier(0.190, 1.000, 0.220, 1.000);
-@ExpoEaseInOut: cubic-bezier(1.000, 0.000, 0.000, 1.000);
-
-@SineEaseIn: cubic-bezier(0.470, 0.000, 0.745, 0.715);
-@SineEaseOut: cubic-bezier(0.390, 0.575, 0.565, 1.000);
-@SineEaseInOut: cubic-bezier(0.445, 0.050, 0.550, 0.950);
-
-
-
-@red50: #ffebee;
-@red100: #ffcdd2;
-@red200: #ef9a9a;
-@red300: #e57373;
-@red400: #ef5350;
-@red500: #f44336;
-@red600: #e53935;
-@red700: #d32f2f;
-@red800: #c62828;
-@red900: #b71c1c;
-@redA100: #ff8a80;
-@redA200: #ff5252;
-@redA400: #ff1744;
-@redA700: #d50000;
-@red: @red500;
-
-@pink50: #fce4ec;
-@pink100: #f8bbd0;
-@pink200: #f48fb1;
-@pink300: #f06292;
-@pink400: #ec407a;
-@pink500: #e91e63;
-@pink600: #d81b60;
-@pink700: #c2185b;
-@pink800: #ad1457;
-@pink900: #880e4f;
-@pinkA100: #ff80ab;
-@pinkA200: #ff4081;
-@pinkA400: #f50057;
-@pinkA700: #c51162;
-@pink: @pink500;
-
-@purple50: #f3e5f5;
-@purple100: #e1bee7;
-@purple200: #ce93d8;
-@purple300: #ba68c8;
-@purple400: #ab47bc;
-@purple500: #9c27b0;
-@purple600: #8e24aa;
-@purple700: #7b1fa2;
-@purple800: #6a1b9a;
-@purple900: #4a148c;
-@purpleA100: #ea80fc;
-@purpleA200: #e040fb;
-@purpleA400: #d500f9;
-@purpleA700: #aa00ff;
-@purple: @purple500;
-
-@deepPurple50: #ede7f6;
-@deepPurple100: #d1c4e9;
-@deepPurple200: #b39ddb;
-@deepPurple300: #9575cd;
-@deepPurple400: #7e57c2;
-@deepPurple500: #673ab7;
-@deepPurple600: #5e35b1;
-@deepPurple700: #512da8;
-@deepPurple800: #4527a0;
-@deepPurple900: #311b92;
-@deepPurpleA100: #b388ff;
-@deepPurpleA200: #7c4dff;
-@deepPurpleA400: #651fff;
-@deepPurpleA700: #6200ea;
-@deepPurple: @deepPurple500;
-
-@indigo50: #e8eaf6;
-@indigo100: #c5cae9;
-@indigo200: #9fa8da;
-@indigo300: #7986cb;
-@indigo400: #5c6bc0;
-@indigo500: #3f51b5;
-@indigo600: #3949ab;
-@indigo700: #303f9f;
-@indigo800: #283593;
-@indigo900: #1a237e;
-@indigoA100: #8c9eff;
-@indigoA200: #536dfe;
-@indigoA400: #3d5afe;
-@indigoA700: #304ffe;
-@indigo: @indigo500;
-
-@blue50: #e3f2fd;
-@blue100: #bbdefb;
-@blue200: #90caf9;
-@blue300: #64b5f6;
-@blue400: #42a5f5;
-@blue500: #2196f3;
-@blue600: #1e88e5;
-@blue700: #1976d2;
-@blue800: #1565c0;
-@blue900: #0d47a1;
-@blueA100: #82b1ff;
-@blueA200: #448aff;
-@blueA400: #2979ff;
-@blueA700: #2962ff;
-@blue: @blue500;
-
-@lightBlue50: #e1f5fe;
-@lightBlue100: #b3e5fc;
-@lightBlue200: #81d4fa;
-@lightBlue300: #4fc3f7;
-@lightBlue400: #29b6f6;
-@lightBlue500: #03a9f4;
-@lightBlue600: #039be5;
-@lightBlue700: #0288d1;
-@lightBlue800: #0277bd;
-@lightBlue900: #01579b;
-@lightBlueA100: #80d8ff;
-@lightBlueA200: #40c4ff;
-@lightBlueA400: #00b0ff;
-@lightBlueA700: #0091ea;
-@lightBlue: @lightBlue500;
-
-@cyan50: #e0f7fa;
-@cyan100: #b2ebf2;
-@cyan200: #80deea;
-@cyan300: #4dd0e1;
-@cyan400: #26c6da;
-@cyan500: #00bcd4;
-@cyan600: #00acc1;
-@cyan700: #0097a7;
-@cyan800: #00838f;
-@cyan900: #006064;
-@cyanA100: #84ffff;
-@cyanA200: #18ffff;
-@cyanA400: #00e5ff;
-@cyanA700: #00b8d4;
-@cyan: @cyan500;
-
-@teal50: #e0f2f1;
-@teal100: #b2dfdb;
-@teal200: #80cbc4;
-@teal300: #4db6ac;
-@teal400: #26a69a;
-@teal500: #009688;
-@teal600: #00897b;
-@teal700: #00796b;
-@teal800: #00695c;
-@teal900: #004d40;
-@tealA100: #a7ffeb;
-@tealA200: #64ffda;
-@tealA400: #1de9b6;
-@tealA700: #00bfa5;
-@teal: @teal500;
-
-@green50: #e8f5e9;
-@green100: #c8e6c9;
-@green200: #a5d6a7;
-@green300: #81c784;
-@green400: #66bb6a;
-@green500: #4caf50;
-@green600: #43a047;
-@green700: #388e3c;
-@green800: #2e7d32;
-@green900: #1b5e20;
-@greenA100: #b9f6ca;
-@greenA200: #69f0ae;
-@greenA400: #00e676;
-@greenA700: #00c853;
-@green: @green500;
-
-@lightGreen50: #f1f8e9;
-@lightGreen100: #dcedc8;
-@lightGreen200: #c5e1a5;
-@lightGreen300: #aed581;
-@lightGreen400: #9ccc65;
-@lightGreen500: #8bc34a;
-@lightGreen600: #7cb342;
-@lightGreen700: #689f38;
-@lightGreen800: #558b2f;
-@lightGreen900: #33691e;
-@lightGreenA100: #ccff90;
-@lightGreenA200: #b2ff59;
-@lightGreenA400: #76ff03;
-@lightGreenA700: #64dd17;
-@lightGreen: @lightGreen500;
-
-@lime50: #f9fbe7;
-@lime100: #f0f4c3;
-@lime200: #e6ee9c;
-@lime300: #dce775;
-@lime400: #d4e157;
-@lime500: #cddc39;
-@lime600: #c0ca33;
-@lime700: #afb42b;
-@lime800: #9e9d24;
-@lime900: #827717;
-@limeA100: #f4ff81;
-@limeA200: #eeff41;
-@limeA400: #c6ff00;
-@limeA700: #aeea00;
-@lime: @lime500;
-
-@yellow50: #fffde7;
-@yellow100: #fff9c4;
-@yellow200: #fff59d;
-@yellow300: #fff176;
-@yellow400: #ffee58;
-@yellow500: #ffeb3b;
-@yellow600: #fdd835;
-@yellow700: #fbc02d;
-@yellow800: #f9a825;
-@yellow900: #f57f17;
-@yellowA100: #ffff8d;
-@yellowA200: #ffff00;
-@yellowA400: #ffea00;
-@yellowA700: #ffd600;
-@yellow: @yellow500;
-
-@amber50: #fff8e1;
-@amber100: #ffecb3;
-@amber200: #ffe082;
-@amber300: #ffd54f;
-@amber400: #ffca28;
-@amber500: #ffc107;
-@amber600: #ffb300;
-@amber700: #ffa000;
-@amber800: #ff8f00;
-@amber900: #ff6f00;
-@amberA100: #ffe57f;
-@amberA200: #ffd740;
-@amberA400: #ffc400;
-@amberA700: #ffab00;
-@amber: @amber500;
-
-@orange50: #fff3e0;
-@orange100: #ffe0b2;
-@orange200: #ffcc80;
-@orange300: #ffb74d;
-@orange400: #ffa726;
-@orange500: #ff9800;
-@orange600: #fb8c00;
-@orange700: #f57c00;
-@orange800: #ef6c00;
-@orange900: #e65100;
-@orangeA100: #ffd180;
-@orangeA200: #ffab40;
-@orangeA400: #ff9100;
-@orangeA700: #ff6d00;
-@orange: @orange500;
-
-@deepOrange50: #fbe9e7;
-@deepOrange100: #ffccbc;
-@deepOrange200: #ffab91;
-@deepOrange300: #ff8a65;
-@deepOrange400: #ff7043;
-@deepOrange500: #ff5722;
-@deepOrange600: #f4511e;
-@deepOrange700: #e64a19;
-@deepOrange800: #d84315;
-@deepOrange900: #bf360c;
-@deepOrangeA100: #ff9e80;
-@deepOrangeA200: #ff6e40;
-@deepOrangeA400: #ff3d00;
-@deepOrangeA700: #dd2c00;
-@deepOrange: @deepOrange500;
-
-@brown50: #efebe9;
-@brown100: #d7ccc8;
-@brown200: #bcaaa4;
-@brown300: #a1887f;
-@brown400: #8d6e63;
-@brown500: #795548;
-@brown600: #6d4c41;
-@brown700: #5d4037;
-@brown800: #4e342e;
-@brown900: #3e2723;
-@brown: @brown500;
-
-@blueGrey50: #eceff1;
-@blueGrey100: #cfd8dc;
-@blueGrey200: #b0bec5;
-@blueGrey300: #90a4ae;
-@blueGrey400: #78909c;
-@blueGrey500: #607d8b;
-@blueGrey600: #546e7a;
-@blueGrey700: #455a64;
-@blueGrey800: #37474f;
-@blueGrey900: #263238;
-@blueGrey: @blueGrey500;
-
-@grey50: #fafafa;
-@grey100: #f5f5f5;
-@grey200: #eeeeee;
-@grey300: #e0e0e0;
-@grey400: #bdbdbd;
-@grey500: #9e9e9e;
-@grey600: #757575;
-@grey700: #616161;
-@grey800: #424242;
-@grey900: #212121;
-@grey: @grey500;
-
-@black: #000000;
-@white: #ffffff;
-
-@transparent: rgba(0, 0, 0, 0);
-@fullBlack: rgba(0, 0, 0, 1);
-@darkBlack: rgba(0, 0, 0, 0.87);
-@lightBlack: rgba(0, 0, 0, 0.54);
-@minBlack: rgba(0, 0, 0, 0.26);
-@faintBlack: rgba(0, 0, 0, 0.12);
-@fullWhite: rgba(255, 255, 255, 1);
-@darkWhite: rgba(255, 255, 255, 0.87);
-@lightWhite: rgba(255, 255, 255, 0.54);
-
-
-.loopColorList(@list){
-    @leng:length(@list);
-    .loop(@n)when(@n>0){
-        @cl:extract(@list,@n);
-        @cl-val:@@cl;
-
-        .__class_write_with_important(~"cl-@{cl}",    color,  @@cl);
-        .cl-@{cl}-hover:hover{color:@@cl;}
-        .cl-@{cl}-hover-i:hover{color:@@cl !important;}
-
-        .__class_write_with_important(~"bg-@{cl}",    background-color,  @@cl);
-        .bg-@{cl}-hover:hover{background-color:@@cl;}
-        .bg-@{cl}-hover-i:hover{background-color:@@cl !important;}
-
-        .__class_write_with_important(~"bd-@{cl}",    border-color,  @@cl);
-        .loop(@n - 1);
-    }
-    .loop(@leng);
-}
+.di{display: inline;}
 
 
 .mdColorClass(){
-    @colors-list: red50,red100,red200,red300,red400,red500,red600,red700,red800,red900,redA100,redA200,redA400,redA700,red,pink50,pink100,pink200,pink300,pink400,pink500,pink600,pink700,pink800,pink900,pinkA100,pinkA200,pinkA400,pinkA700,pink,purple50,purple100,purple200,purple300,purple400,purple500,purple600,purple700,purple800,purple900,purpleA100,purpleA200,purpleA400,purpleA700,purple,deepPurple50,deepPurple100,deepPurple200,deepPurple300,deepPurple400,deepPurple500,deepPurple600,deepPurple700,deepPurple800,deepPurple900,deepPurpleA100,deepPurpleA200,deepPurpleA400,deepPurpleA700,deepPurple,indigo50,indigo100,indigo200,indigo300,indigo400,indigo500,indigo600,indigo700,indigo800,indigo900,indigoA100,indigoA200,indigoA400,indigoA700,indigo,blue50,blue100,blue200,blue300,blue400,blue500,blue600,blue700,blue800,blue900,blueA100,blueA200,blueA400,blueA700,blue,lightBlue50,lightBlue100,lightBlue200,lightBlue300,lightBlue400,lightBlue500,lightBlue600,lightBlue700,lightBlue800,lightBlue900,lightBlueA100,lightBlueA200,lightBlueA400,lightBlueA700,lightBlue,cyan50,cyan100,cyan200,cyan300,cyan400,cyan500,cyan600,cyan700,cyan800,cyan900,cyanA100,cyanA200,cyanA400,cyanA700,cyan,teal50,teal100,teal200,teal300,teal400,teal500,teal600,teal700,teal800,teal900,tealA100,tealA200,tealA400,tealA700,teal,green50,green100,green200,green300,green400,green500,green600,green700,green800,green900,greenA100,greenA200,greenA400,greenA700,green,lightGreen50,lightGreen100,lightGreen200,lightGreen300,lightGreen400,lightGreen500,lightGreen600,lightGreen700,lightGreen800,lightGreen900,lightGreenA100,lightGreenA200,lightGreenA400,lightGreenA700,lightGreen,lime50,lime100,lime200,lime300,lime400,lime500,lime600,lime700,lime800,lime900,limeA100,limeA200,limeA400,limeA700,lime,yellow50,yellow100,yellow200,yellow300,yellow400,yellow500,yellow600,yellow700,yellow800,yellow900,yellowA100,yellowA200,yellowA400,yellowA700,yellow,amber50,amber100,amber200,amber300,amber400,amber500,amber600,amber700,amber800,amber900,amberA100,amberA200,amberA400,amberA700,amber,orange50,orange100,orange200,orange300,orange400,orange500,orange600,orange700,orange800,orange900,orangeA100,orangeA200,orangeA400,orangeA700,orange,deepOrange50,deepOrange100,deepOrange200,deepOrange300,deepOrange400,deepOrange500,deepOrange600,deepOrange700,deepOrange800,deepOrange900,deepOrangeA100,deepOrangeA200,deepOrangeA400,deepOrangeA700,deepOrange,brown50,brown100,brown200,brown300,brown400,brown500,brown600,brown700,brown800,brown900,brown,blueGrey50,blueGrey100,blueGrey200,blueGrey300,blueGrey400,blueGrey500,blueGrey600,blueGrey700,blueGrey800,blueGrey900,blueGrey,grey50,grey100,grey200,grey300,grey400,grey500,grey600,grey700,grey800,grey900,grey,black,white,transparent,fullBlack,darkBlack,lightBlack,minBlack,faintBlack,fullWhite,darkWhite,lightWhite;
-    .loopColorList(@colors-list);
+    @ls:@colors-list;
+    .loopColorList(@ls);
 }
 
 
@@ -912,10 +110,7 @@
     }
 }
 
-//蚂蚁线生成器
-.ant-line-factory(@tick-color:@grey300, @tick-length:0.5em, @gap-length:0.75em,  @gap-color:transparent){
-    background-image: repeating-linear-gradient(-45deg, @tick-color 0, @tick-color 0.25em, @gap-color 0, @gap-color @gap-length);
-}
+
 
 .shortcutClass(){
 
@@ -997,8 +192,8 @@
     .__class_write_with_important(ps,position,static);
 
     .__class_write_with_important(db, display,block);
+    .__class_write_with_important(di, display, inline);
     .__class_write_with_important(dib,display,inline-block);
-
 
     //
     .__class_write_with_important(cp,cursor,pointer);
@@ -1088,7 +283,10 @@
     }
 
     .fx1{ flex: 1;}
-
+    .fx2{ flex: 2;}
+    .fx3{ flex: 3;}
+    .fx4{ flex: 4;}
+    .fx5{ flex: 5;}
 
     .of{
         &.h     {overflow: hidden;}
@@ -1103,12 +301,16 @@
         .__class_write_with_important(~"br@{value}px", border-right-width , unit(@value, px));
         .__class_write_with_important(~"bb@{value}px", border-bottom-width , unit(@value, px));
         .__class_write_with_important(~"bl@{value}px", border-left-width , unit(@value, px));
-        .__class_write_with_important(~"bd@{value}px", border-width , unit(@value, px));
-        .__class_write_with_important(~"h@{value}px", height , unit(@value, px));
-        .__class_write_with_important(~"w@{value}px", width , unit(@value, px));
+        .__class_write_with_important(~"b@{value}px", border-width , unit(@value, px));
         .__class_write_with_important(~"s@{value}px", width height, unit(@value, px));
     })
 
+
+
+    .__class_write_with_important(b-solid, brder-style, solid);
+    .__class_write_with_important(b-dotted, brder-style, dotted);
+    .__class_write_with_important(b-dashed, brder-style, dashed);
+    .__class_write_with_important(b-double, brder-style, double);
 
     .__class_write_with_important(h-auto, height, auto);
     .__class_write_with_important(w-auto, width, auto);
@@ -1123,12 +325,11 @@
         .__class_write_with_important(~"z@{value}", z-index ,@value);
     })
 
-
     //border-raduis
     each(0 1 2 3 4 5 7 8 9,{
         .__class_write_with_important(~"bdr@{value}", border-radius ,unit(@value, px));
     })
-    .__class_write_with_important(brs50p, border-radius, 50%);
+    .__class_write_with_important(bdr50p, border-radius, 50%);
 
 
     //font-width
@@ -1171,20 +372,6 @@
             .__class_write_with_important(~"ti@{key}",      text-indent, @value);
             //.__class_write_with_important(~"hgap@{key}",    height, @value);
             //.__class_write_with_important(~"vgap@{key}",    width display, @value inline-block);
-        }
-
-        //透明
-        .write(@key, @value) when(@gp = "opacity"){
-            .__class_write_with_important(~"op@{key}",    opacity,  @value);
-            .op@{key}-hover:hover{opacity: @value;}
-            .op@{key}-hover-i:hover{opacity: @value !important;}
-        }
-
-
-        //缩放
-        .write(@key,@value) when(@gp = "scale"){
-            @v:unit(@value);
-            .__class_write_with_important(~"scale@{key}",    transform,  ~"scale(@{v})");
         }
 
         //vwvh
@@ -1242,94 +429,7 @@
     }
 
 
-    @values:
-        0em
-        0.125em
-        0.25em
-        0.3em
-        0.5em
-        0.6em
-        0.75em
-        0.8em
-        0.85em
-        0.9em
-        0.95em
-        1em
-        1.05em
-        1.1em
-        1.15em
-        1.2em
-        1.25em
-        1.3em
-        1.35em
-        1.4em
-        1.45em
-        1.5em
-        1.75em
-        1.8em
-        2em
-        2.1em
-        2.2em
-        2.25em
-        2.4em
-        2.5em
-        2.7em
-        3em
-        3.3em
-        3.6em
-        3.9em
-        4em
-        4.2em
-        4.5em
-        4.8em
-        5em
-        5.1em
-        6em
-        7em
-        8em
-        9em
-        10em
-        11em
-        12em
-        13em
-        14em
-        15em
-        16em
-        17em
-        18em
-        19em
-        20em
-        21em
-        22em
-        24em
-        25em
-        26em
-        27em
-        28em
-        30em
-        32em
-        33em
-        34em
-        35em
-        36em
-        38em
-        39em
-        40em
-        42em
-        44em
-        45em
-        46em
-        48em
-        50em
-        51em
-        52em
-        54em
-        55em
-        56em
-        58em
-        60em
-    ;
-
+    @values:@size_range;
 
     //距离组   //.mt1.mb025
     .toolkitGen("distance", @values);
@@ -1338,10 +438,31 @@
     .toolkitGen("size", @values);
 
     //透明 .op01.op05.op10
-    .toolkitGen("opacity",0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1);
+    each(@opcity_range{
+        @val:@value/100;
+        @k: replace(
+            .floatPadStarts(@value/10, 2)[@__],
+            "\.", "_", "g"
+        );
+        //@k: .floatPadStarts(@value/10, 5)[@__];
+        .__class_write_with_important(          ~"op@{k}",    opacity,  @val);
+        .__class_write_with_important-hover(    ~"op@{k}",    opacity,  @val);
+    })
+
+    //scale08_5
+    .eachRange(@scale_range, {
+        @val:@value/100;
+        @k: replace(
+                .floatPadStarts(@value/10, 2)[@__],
+            "\.", "_", "g"
+        );
+        .__class_write_with_important(          ~"scale@{k}",    transform,  ~"scale(@{val})");
+        .__class_write_with_important-hover(    ~"scale@{k}",    transform,  ~"scale(@{val})");
+    });
+
 
     /*缩放 .scale01.scale10*/
-    .toolkitGen("scale",0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.75 1 1.05 1.1 1.15 1.2 1.25 1.3 1.4 1.5 1.75 1.8 2 2.4 2.7 3.0 3 3.3);
+    //.toolkitGen("scale",0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.75 1 1.05 1.1 1.15 1.2 1.25 1.3 1.4 1.5 1.75 1.8 2 2.1 2.4 2.7 3.0 3 3.3);
 
     //百分比 .w100p.h33d33p.l33d33p.t100p.pt16d66p
     .toolkitGen("%",0% 10% 12.5% 14.285% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
@@ -1356,10 +477,8 @@
 
     //m-auto,mh-auto等
     .__class_write_with_important(m-auto,margin,auto);
-
     .__class_write_with_important(mh-auto,margin-left margin-right,auto auto);
     .__class_write_with_important(mv-auto,margin-top margin-bottom,auto auto);
-
     .__class_write_with_important(ml-auto,margin-left,auto);
     .__class_write_with_important(mt-auto,margin-top,auto);
     .__class_write_with_important(mr-auto,margin-right,auto);
@@ -1379,57 +498,6 @@
         }
     }
 }
-
-
-
-
-//规定表格个列的宽度和对齐方式,自动宽度传入-1
-//ex: 0/auto 表示不干涉该列宽度
-//.table-1{
-//     .tableColSet(18em right 5em 2em, 15px, 0, 0, 10%);
-//}
-//.table-1第一列宽度18em,第二列15px,第三列自动...
-.tableColSet(@rest...){
-    .loop(@n) when (@n>0){
-        >tbody>tr>*,>tr>*{
-            @value:extract(@widthList,@n);
-            @leng:length(@value);
-            @width:extract(@value,1);
-            @align:extract(@value,2);
-            @paddingLeft:extract(@value,3);
-            @paddingRight:extract(@value,4);
-            &:nth-child(@{n}){
-
-                & when(@width>0){
-
-
-
-                    width: @width;
-                }
-
-                & when(iskeyword(@align)){
-                    text-align:@align;
-                }
-
-                & when(isnumber(@paddingLeft)){
-                    padding-left:@paddingLeft;
-                }
-
-                & when(isnumber(@paddingRight)){
-                    padding-right:@paddingRight;
-                }
-            }
-        }
-        .loop(@n - 1);
-    }
-
-
-    @widthList:@rest;
-    @le:length(@widthList);
-    .loop(@le);
-}
-
-
 
 
 
