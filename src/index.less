@@ -376,9 +376,11 @@
 
         //vwvh
         .write(@key,@value) when(@gp = "vwvh"){
-            .__class_write_with_important(~"vw@{key}",    width,  ~"@{value}vw");
-            .__class_write_with_important(~"vh@{key}",    width,  ~"@{value}vh");
+            @kk:replace(~"@{value}", "\.", "d", "g");
+            .__class_write_with_important(~"vw@{kk}",    width,   ~"@{value}vw");
+            .__class_write_with_important(~"vh@{kk}",    height,  ~"@{value}vh");
         }
+
 
         .loop(@n)when(@n>0){
             @val:extract(@value-list,@n);
@@ -410,10 +412,10 @@
                 .__class_write_with_important(~"t@{key}p",       top,  @value);
                 .__class_write_with_important(~"r@{key}p",       right,  @value);
                 .__class_write_with_important(~"b@{key}p",       bottom,  @value);
-                .__class_write_with_important(~"pl@{key}p",      padding-left, @value);
-                .__class_write_with_important(~"pt@{key}p",      padding-top, @value);
-                .__class_write_with_important(~"pr@{key}p",      padding-right, @value);
-                .__class_write_with_important(~"pb@{key}p",      padding-bottom, @value);
+                //.__class_write_with_important(~"pl@{key}p",      padding-left, @value);
+                //.__class_write_with_important(~"pt@{key}p",      padding-top, @value);
+                //.__class_write_with_important(~"pr@{key}p",      padding-right, @value);
+                //.__class_write_with_important(~"pb@{key}p",      padding-bottom, @value);
             }
 
             //offset
@@ -442,7 +444,7 @@
         @val:@value/100;
         @k: replace(
             .floatPadStarts(@value/10, 2)[@__],
-            "\.", "_", "g"
+            "\.", "d", "g"
         );
         //@k: .floatPadStarts(@value/10, 5)[@__];
         .__class_write_with_important(          ~"op@{k}",    opacity,  @val);
@@ -453,8 +455,8 @@
     .eachRange(@scale_range, {
         @val:@value/100;
         @k: replace(
-                .floatPadStarts(@value/10, 2)[@__],
-            "\.", "_", "g"
+            .floatPadStarts(@value/10, 2)[@__],
+            "\.", "d", "g"
         );
         .__class_write_with_important(          ~"scale@{k}",    transform,  ~"scale(@{val})");
         .__class_write_with_important-hover(    ~"scale@{k}",    transform,  ~"scale(@{val})");
@@ -465,14 +467,14 @@
     //.toolkitGen("scale",0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.75 1 1.05 1.1 1.15 1.2 1.25 1.3 1.4 1.5 1.75 1.8 2 2.1 2.4 2.7 3.0 3 3.3);
 
     //百分比 .w100p.h33d33p.l33d33p.t100p.pt16d66p
-    .toolkitGen("%",0% 10% 12.5% 14.285% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
+    .toolkitGen("%",33.33% 100%);
     .toolkitGen("%",0% 5% 10% 15% 20% 25% 30% 35% 40% 45% 50% 55% 60% 65% 70% 75% 80% 85% 90% 95%);
 
     //vh,vw
-    .toolkitGen("vwvh",0 10 12.5 14.285 16.66 20 25 30 33.33 36 50 66.66 75 100);
+    .toolkitGen("vwvh",0 10 12.5 20 25 30 33.33 35 36 50 66.66 75 80 90 100);
 
     //offset
-    .toolkitGen("offset",range(-20,20,1));
+    .toolkitGen("offset", range(-20,20,1));
 
 
     //m-auto,mh-auto等
