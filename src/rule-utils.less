@@ -96,8 +96,8 @@
 //设置尺寸时候，同时设置margin没size尺寸的一般（负）
 ._size_rever_margin(@width,@height){
     ._size(@width,@height);
-    margin-left:-@width/2;
-    margin-top :-@height/2;
+    margin-left:-@width * 0.5;
+    margin-top :-@height*0.5;
 }
 
 ._size_rever_margin(@size){
@@ -183,7 +183,7 @@
 
 //形成斜三角(45整数倍三角)
 .triangle45(@size,@dira:left,@dirb:bottom,@color:#08c,@blankColor:transparent){
-    border: @blankColor solid @size/2;
+    border: @blankColor solid @size * 0.5;
     border-@{dira}-color:@color;
     border-@{dirb}-color:@color;
     line-height: 0;
@@ -336,7 +336,7 @@
         padding-bottom: @gap;
         //margin-left: -@gap/2;
         text-indent: 0;
-        left: -@gap/2;
+        left: -@gap*0.5
         position: relative;
         font-size: 0;
 
@@ -345,7 +345,7 @@
             font-size: 14px;
             min-height: @gap;
             margin-bottom: @gap;
-            .margin_h(@gap/2);
+            .margin_h(@gap*0.5);
         }
     }
     .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = true){
