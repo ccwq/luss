@@ -1,5 +1,14 @@
-#文档
+# 引用:
 
+ease部分的内容来自qivhou的仓库
+https://github.com/qivhou/easing.less
+
+以及raphaelameaume的
+https://github.com/raphaelameaume/gsap-easings-css
+
+
+
+#文档
 
 工具类大致分为m,p,size,color系列以及其他零散的小工具class
 
