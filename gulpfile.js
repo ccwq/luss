@@ -1,34 +1,23 @@
-var gulp = require("gulp");
-var less = require("gulp-less");
-var rename = require('gulp-rename');
+const gulp = require("gulp");
+const less = require("gulp-less");
+const rename = require('gulp-rename');
 const rm = require("rimraf");
-const cssmin = require('gulp-minify-css');
-const sourcemaps = require('gulp-sourcemaps');
 const cleanCSS = require('gulp-clean-css');
-
-
 const {watch, task, series, parallel} = gulp;
-
-var lessGlob = ["src/**.less","!**/tool.less"];
-
+const lessGlob = ["src/**.less","!**/tool.less"];
 
 function swallowError(error){
     console.error("已捕获错误:",error.toString());
 }
 
-gulp.task("build-less",async function(){
-    await new Promise(resolve=> rm("dist", resolve));
+const getLessBuilder = async (src, distName)=>{
     await gulp
-        .src("src/dist-index.less")
-        .pipe(less({
-
-        }))
+        .src(src)
+        .pipe(less({}))
         .pipe(rename(file=>{
-            file.basename = "index.uncompressed";
+            file.basename = `${distName}.uncompressed`;
         }))
-        .pipe(
-            gulp.dest("dist")
-        )
+        .pipe(gulp.dest("dist"))
         .pipe(
             cleanCSS({
                 backgroundClipMerging: true, // controls background-clip merging into shorthand
@@ -48,19 +37,23 @@ gulp.task("build-less",async function(){
         )
         .on("error",swallowError)
         .pipe(rename(function(file){
-           file.basename = "index";
+            file.basename = distName;
         }))
-        .pipe(
-            gulp.dest("dist")
-        )
-    ;
+        .pipe(gulp.dest("dist"))
+}
+
+
+gulp.task("build-less",async function(){
+    await new Promise(resolve=> rm("dist", resolve));
+    await getLessBuilder("src/dist-index.less","index");
+    await getLessBuilder("src/dist-lite.less","lite");
+    await getLessBuilder("src/dist-reset.less","reset");
 });
 
 
-
-task("watch-less",function(){
+task("watch-less", function () {
     watch(lessGlob, series(["build-less"]));
-})
+});
 
 
 

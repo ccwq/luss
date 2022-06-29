@@ -9,13 +9,16 @@
         "gulp-minify-css": "^1.2.4",
         "gulp-rename": "^1.4.0",
         "gulp-sourcemaps": "^2.6.5",
-        "rimraf": "^2.6.3"
+        "gulp-typescript": "6.0.0-alpha.1",
+        "rimraf": "^2.6.3",
+        "typescript": "^4.7.4",
+        "unocss": "^0.41.1"
     },
     "dependencies": {
         "gulp-clean-css": "^4.3.0"
     },
     "scripts": {
-        "build": "gulp build-less",
+        "build": "gulp build-less && tsc -p tsconfig.json",
         "watch": "gulp watch-less",
         "publish major": "npm run build && snpm version major && snpm publish",
         "publish minor": "npm run build && snpm version minor && snpm publish",

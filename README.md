@@ -1,5 +1,44 @@
-# 引用:
+# 重大重构
 
+使用unocss重新实现大部分规则,以减少dist。
+
+unocss: https://github.com/unocss/unocss
+
+增加unocss的规则,以及对官方extractorPug问题的修复,解决在某些情况下无法读取pug class规则的问题。
+
+
+vite项目中使用
+
+```json
+import Unocss from 'unocss/vite'
+import {extractorSplit, presetUno, Rule} from 'unocss'
+import {rules, extractorPugFactory} from "luss/dist/unocss-luss"
+/*
+该语句可能在ts中被标红
+需要再tsconfig.node.json增加如下配置
+compilerOptions.lib: ["es2015"]
+*/
+const extractorPug = extractorPugFactory(import("pug"))
+
+export default {
+    plugins: [
+        Unocss({
+            //@ts-ignore
+            rules: [
+                //@ts-ignore
+                ...rules,
+            ],
+            extractors: [
+                extractorPug(),
+                extractorSplit,
+            ],
+        })
+    ],
+}
+```
+
+
+# 引用:
 ease部分的内容来自qivhou的仓库
 https://github.com/qivhou/easing.less
 

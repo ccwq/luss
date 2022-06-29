@@ -1,0 +1,943 @@
+@import (once) "vars";
+
+//设置了单位
+.__write(@key,@value,@defaultUnit:px) when not(get-unit(@value)=~"") or not(isnumber(@value)){
+        @{key}:@value;
+}
+
+
+//没有设置单位的情况
+.__write(@key,@value,@defaultUnit:px) when(get-unit(@value)=~"") and (isnumber(@value)){
+        @{key}:unit(@value,@defaultUnit);
+}
+
+
+
+.__class_write(@className,@keyList,@valueList){
+    .@{className}{
+        .__writes(@keyList,@valueList);
+    }
+}
+
+
+.__class_write-hover(@className,@keyList,@valueList){
+    .@{className}{
+        &:hover{
+            .__writes(@keyList,@valueList);
+        }
+    }
+}
+
+.__class_write_with_important(@className,@keyList,@valueList){
+    .__class_write(@className,@keyList,@valueList);
+    .__class_write(~"@{className}-i",@keyList,@valueList) !important;
+}
+
+.__class_write_with_important-hover(@className,@keyList,@valueList){
+    .__class_write-hover(~"@{className}-hover",@keyList,@valueList);
+    .__class_write-hover(~"@{className}-hover-i",@keyList,@valueList) !important;
+}
+
+.__writes(@keyList,@value) when (length(@value)=1){
+    @leng:length(@keyList);
+    ._loop(@n) when(@n<=@leng){
+        @key:extract(@keyList,@n);
+        .__write(@key,@value,~"");
+        ._loop(@n + 1);
+    }
+    ._loop(1)
+}
+
+.__writes(@keyList, @valueList) when (length(@valueList)>1){
+    @leng:length(@keyList);
+    ._loop(@n) when(@n<=@leng){
+        @key:extract(@keyList,@n);
+        @value:extract(@valueList,@n);
+        .__write(@key,@value,~"");
+        ._loop(@n + 1);
+    }
+    ._loop(1)
+}
+
+
+
+//透明度调整
+._alpha(@val:80){ opacity: @val * 0.01; filter: alpha(opacity=@val); }
+._op(@value){._alpha(@value * 100)}
+
+//横向padding
+._ph(@value:auto){padding-left: @value; padding-right: @value;}
+//纵向padding
+._pv(@value:auto){padding-top: @value; padding-bottom: @value;}
+//横向margin
+._mh(@value:auto){margin-left: @value; margin-right: @value;}
+//纵向margin
+._mv(@value:auto){margin-top: @value; margin-bottom: @value;}
+
+
+//block尺寸，同时设置长宽
+._size(@size){._size(@size,@size)}
+._size(@width,@height){
+    .__write(width,@width,px);
+    .__write(height,@height,px);
+}
+
+//设置高度时，同时设置line-height
+._size_lh(@width,@height){
+    ._size(@width,@height);
+    .__write(line-height,@height,px)
+}
+
+._size_lh(@s){
+    ._size_lh(@s,@s)
+}
+
+
+//设置尺寸时候，同时设置margin没size尺寸的一般（负）
+._size_rever_margin(@width,@height){
+    ._size(@width,@height);
+    margin-left:-@width * 0.5;
+    margin-top :-@height*0.5;
+}
+
+._size_rever_margin(@size){
+    ._size_rever_margin(@size,@size);
+}
+
+
+._size_revert_margin_lh(@width,@height){
+    ._size_rever_margin(@width,@height);
+    line-height: @height;
+}
+
+._size_revert_margin_lh(@size){
+    ._size_revert_margin_lh(@size,@size);
+}
+
+._fillin(@value:0){
+    .__writes(left top right bottom, @value)
+}
+
+
+//reset;
+.reset-function(){
+    html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
+    img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
+    tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section,
+    summary,time, mark, audio, video {
+        margin: 0;padding: 0;border: 0;font-size: 100%;vertical-align: baseline;
+    }
+
+    h1, h2, h3, h4, h5, h6{ font-weight: 700;}
+
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, footer, header, menu, nav, section { display: block;}
+    body {line-height: 1; font-size: 12px;}
+    ol, ul{ list-style: none; }
+    blockquote, q {quotes: none;}
+    blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}table {border-collapse: collapse;border-spacing: 0;}
+
+    i,em{font-style: normal;}
+    a{ text-decoration: none;}
+}
+
+
+//ie旋转
+//@ang只支持deg
+._ieRotate(@ang,@width,@height){
+    @deg:pi()*2 - unit(convert(unit(@ang,deg),"rad"));          //ie角度正好和w3c旋转相反
+    @sin:sin(@deg);
+    @cos:cos(@deg);
+    @fsin:-@sin;
+    @fcos:-@cos;
+
+    @w:unit(@width);
+    @h:unit(@height);
+    @dx:-@w/2*@cos+@h/2*@sin+@w/2;
+    @dy:-@w/2*@sin - @h/2*@cos+@h/2;
+
+    filter:progid:DXImageTransform.Microsoft.Matrix(Dx=@dx, Dy=@dy,M11=@cos,M12=@sin,M21=@fsin,M22=@cos,sizingMethod="auto expand");
+}
+
+//ie 的旋转
+._ieRotate(@ang,@size){
+    .ieRotate(@ang, @size, @size);
+}
+
+
+
+//形成三角
+.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent){
+    border: @size solid @blankColor;
+    border-@{dir}-width: 0;
+    ._size_lh(0);
+    ._dib;
+
+
+    .____write() when(@dir=right){border-left-color:@color;}
+    .____write() when(@dir=bottom){border-top-color:@color;}
+    .____write() when(@dir=left){border-right-color:@color;}
+    .____write() when(@dir=top){border-bottom-color:@color;}
+    .____write;
+}
+
+//形成斜三角(45整数倍三角)
+.triangle45(@size,@dira:left,@dirb:bottom,@color:#08c,@blankColor:transparent){
+    border: @blankColor solid @size * 0.5;
+    border-@{dira}-color:@color;
+    border-@{dirb}-color:@color;
+    line-height: 0;
+    font-size: 0;
+    ._size(0);
+    &:extend(.dib);
+}
+//----形成三角
+
+
+
+//用来生一个宽度序列
+//参数1 @main_w有三种形式
+//  形式1:1000px              表示总宽度为1000,单元格间距为0
+//  形式2:1000px 12px         表示总宽度为1000,单元格间距为12px，无两边空白
+//  形式3:1000px _12px        表示总宽度为1000,单元格间距为12px，两边有空白
+//参数2 @col_width_list 传入1-(n-1)各单元格宽度,最后一个单元格宽度由计算获得
+//举例 .row1{.gen_grid(1000px 10px,60px,100px,90px,88px, 180px); >*{.iblock};}
+.gen_grid(@main_w__gap,@col_width_list){
+    @leng:length(@col_width_list);
+
+    //分析第一参数
+    @p_list:`(function(index){
+		index = index || 0;
+		var para = "@{main_w__gap}".replace(/\[|\]|,/g,"");
+		var leng = @{leng};
+		var ar = para.split(" ");
+		ar[1] = ar[1] || "0px";
+		var main_w = ar[0];
+		var gap_w=ar[1].replace(/^_|\-/,"");
+		if(/^\_/.test(ar[1])){
+			leng = leng + 2;
+		}else{
+			leng = leng;
+		}
+		var resultList = [main_w, gap_w,leng];
+		return resultList[index-1];
+	})`;
+
+    //提取参数1的定义
+    @main_w:~`@{p_list}(1)`;
+    @gap_w:~`@{p_list}(2)`;
+    @gap_num:~`@{p_list}(3)`;
+
+
+    //计算最后一个单元格宽度
+    @last_w:~`(function(){
+		var arg = eval("@{col_width_list}".replace(/px/g,""));
+		var main_w = parseInt("@{main_w}");
+
+		var gap_num = @{gap_num};
+		var gap_w = parseInt("@{gap_w}");
+		var w=0;
+
+		//只有两列的情况
+		if(arg.length === undefined) arg = [arg];
+
+		arg.map(function(n){
+			w+=n;
+		});
+
+		var lstw = (main_w - w - gap_num*gap_w);
+		bindvar("gd.lastw",lstw);
+		return lstw;
+	})()`;
+
+
+
+
+    width:~`(function(){
+		var main_w = parseInt("@{main_w}");
+		var gap_num = @{gap_num};
+		var leng = @{leng};
+		var gap_w = parseInt("@{gap_w}");
+
+
+		if(gap_num>leng){
+			return (main_w - gap_w) + "px; padding-left:" + gap_w + "px";
+		}else{
+			return main_w + "px";
+		}
+	})()`;
+
+
+    //定义循环
+    .gen_grid_loop(@times,@paras) when(@times >0){
+        .gen_grid_loop(@times - 1, @paras);
+        >.cell-@{times}{
+            width: extract(@paras,@times);
+            margin-right: @gap_w;
+        }
+    }
+
+    //生成1-(n-1)的宽度
+    .gen_grid_loop(@leng , @col_width_list);
+
+    //生成n的宽度
+    @leng_p1:@leng+1;
+    >.cell-last,>.cell-@{leng_p1}{
+        width:unit(@last_w,px);
+    }
+
+    //消除间隔
+    font-size: 0;
+    //white-space: normal;
+
+    //对单元格的一些公共设置
+    >*{
+        &:extend(.dib); font-size: @fsize;
+    }
+}
+
+.gen_grid_line(@main_w__gap,@col_width_list){
+    .gen_grid(@main_w__gap,@col_width_list);
+    white-space: nowrap;
+    >*{white-space: normal;}
+}
+
+//
+._colsets(@colList,@fullWidth,@innerGap:0,@edgeGap:0){
+    @leng:@length(@colList);
+
+
+    @lastWidth:@fullWidth;
+    ._loop(@n) when(@n<=@length){
+        @w:extract(@colList,@n);
+
+        //@lastWidth
+
+        >*:nth-child(@{n}){
+            width:@w;
+            margin-right: @innerGap;
+        }
+
+        ._loop(@n+1);
+    }
+    ._loop(1);
+}
+
+
+//生成列均等的网格布局
+//@main_width整体宽度
+//@gap间隔
+//@n网格猎数
+//@edge_gap间隔是否在边沿
+//@cell_width_offset宽度微调
+._gen_grid_average(@main_width,@n,@gap:0,@edge_gap:false,@cell_width_offset:0){
+    .gen_comm(){
+        padding-top: @gap;
+        padding-bottom: @gap;
+        //margin-left: -@gap/2;
+        text-indent: 0;
+        left: -@gap*0.5;
+        position: relative;
+        font-size: 0;
+
+        >*{
+            &:extend(.dib);
+            font-size: 14px;
+            min-height: @gap;
+            margin-bottom: @gap;
+            .margin_h(@gap*0.5);
+        }
+    }
+    .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = true){
+        @cellw:(@main_width - (@n + 1)*@gap)/@n + @cell_width_offset;
+        width: @main_width;
+        padding-left: @gap;
+        >*{
+            width: @cellw;
+        }
+    }
+
+    .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = false){
+        @cellw:(@main_width - (@n)*@gap)/@n + @cell_width_offset;
+        width: @main_width + @gap;
+
+        >*{
+            width: @cellw;
+        }
+    }
+
+    .gen_comm;
+    .gen(@main_width,@gap,@n,@edge_gap);
+
+}
+
+
+//半透明背景，兼容ie
+._bgcolor_alpha(@bgcolor: rgba(0,0,0,.51)){
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr = argb(@bgcolor), endColorstr=argb(@bgcolor));
+    background-color:@bgcolor;
+}
+
+._bgcolor_alpha(@rgb,@alpha){
+    @rgba:~`(function(){
+		var obj = __get_rgba_object('@{rgb}',@{alpha});
+		return getRGBA('@{rgb}',@{alpha});
+	})(this)`;
+
+    @argb_16:~`(function(){
+		return getARGB('@{rgb}',@{alpha})
+	})(this)`;
+
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr= @argb_16, endColorstr=@argb_16);
+    background-color:@rgba;
+}
+
+.loopColorList(@list){
+    @leng:length(@list);
+    .loop(@n)when(@n>0){
+        @cl:extract(@list,@n);
+        @cl-val:@@cl;
+
+        .__class_write_with_important(~"cl-@{cl}",    color,  @@cl);
+        .cl-@{cl}-hover:hover{color:@@cl;}
+        .cl-@{cl}-hover-i:hover{color:@@cl !important;}
+
+        .__class_write_with_important(~"bg-@{cl}",    background-color,  @@cl);
+        .bg-@{cl}-hover:hover{background-color:@@cl;}
+        .bg-@{cl}-hover-i:hover{background-color:@@cl !important;}
+
+        .__class_write_with_important(~"bd-@{cl}",    border-color,  @@cl);
+        .loop(@n - 1);
+    }
+    .loop(@leng);
+}
+
+//蚂蚁线生成器
+.ant-line-factory(@tick-color:@grey300, @tick-length:0.5em, @gap-length:0.75em,  @gap-color:transparent){
+    background-image: repeating-linear-gradient(-45deg, @tick-color 0, @tick-color 0.25em, @gap-color 0, @gap-color @gap-length);
+}
+
+
+
+//规定表格个列的宽度和对齐方式,自动宽度传入-1
+//ex: 0/auto 表示不干涉该列宽度
+//.table-1{
+//     .tableColSet(18em right 5em 2em, 15px, 0, 0, 10%);
+//}
+//.table-1第一列宽度18em,第二列15px,第三列自动...
+.tableColSet(@rest...){
+    .loop(@n) when (@n>0){
+        >tbody>tr>*,>tr>*{
+            @value:extract(@widthList,@n);
+            @leng:length(@value);
+            @width:extract(@value,1);
+            @align:extract(@value,2);
+            @paddingLeft:extract(@value,3);
+            @paddingRight:extract(@value,4);
+            &:nth-child(@{n}){
+
+                & when(@width>0){
+
+
+
+                    width: @width;
+                }
+
+                & when(iskeyword(@align)){
+                    text-align:@align;
+                }
+
+                & when(isnumber(@paddingLeft)){
+                    padding-left:@paddingLeft;
+                }
+
+                & when(isnumber(@paddingRight)){
+                    padding-right:@paddingRight;
+                }
+            }
+        }
+        .loop(@n - 1);
+    }
+
+
+    @widthList:@rest;
+    @le:length(@widthList);
+    .loop(@le);
+}
+
+
+/**
+参照js的String.prototype.padStrarts
+@result:padStarts(foo, 5)[@__];
+结果:00foo
+ */
+.padStarts(@string, @length:3, @padString:"0000000000"){
+    @__:  replace(~"@{padString}@{string}", ".+(.{@{length}}?)$", "$1");
+}
+
+/**
+针对浮点数优化的padStarts
+@result:padStarts(foo, 5)[@__];
+结果:00foo
+ */
+.floatPadStarts(@number, @length:3, @padString:"0000000000"){
+    @nMod:mod(@number, 1);
+    .calc() when (@nMod = 0){
+        @__ :  .padStarts(@number, @length, @padString)[@__];
+    }
+    .calc() when not (@nMod = 0){
+        @__ :  replace(~"@{padString}@{number}", ".+(.{@{length}}?)(?=\.)", "$1");
+    }
+    @__:.calc()[@__];
+}
+
+
+
+/**
+ * 多个range使用
+.eachRange(range(1,5) range(10,15), {
+        hs:@value;
+})
+*/
+.eachRange(@rangeLs, @rules){
+    each(@rangeLs, {
+        each(@value, {
+            @rules();
+        })
+    })
+}
+
+
+
+
+._lh(@height){
+    line-height: @height;
+    height: @height;
+}
+
+
+.md-colors-function(){
+    @ls:@colors-list;
+    .loopColorList(@ls);
+}
+
+.shortcut-class-function(){
+
+    //宽度生成
+    .ew{
+        each(range(3, 30), {
+            &.w@{value}{
+                width:unit(@value, em) !important;
+            }
+        })
+    }
+
+
+    //一个类似表单布局的结构
+    .form-gala{
+        >.item{
+            margin: 0.75em 0;
+            display: flex;
+            align-items: center;
+            >.label{
+                padding-right: 0.75em;
+            }
+            >.el{
+                flex: 1;
+            }
+            .force{
+                each(range(4, 24), {
+                    &.w@{value}{
+                        flex: unset;
+                        flex-shrink: 0;
+                        width:unit(@value + 0.5, em);
+                    }
+                })
+            }
+        }
+        each(range(4, 21), {
+            &.w@{value},&.lw@{value}{
+                >.item{
+                    >.label{
+                        flex: unset;
+                        width:unit(@value + 0.5, em);
+                    }
+                }
+            }
+        })
+        &.label-right{
+            .item{
+                >.label{
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+
+    .__class_write(bg-icon,     background-repeat background-position, no-repeat  ~"50% 50%");
+    .__class_write(noselect,    -moz-user-select -webkit-user-select -ms-user-select -khtml-user-select user-select, none none none none none);
+
+    .__class_write(txcut,    overflow -text-overflow white-space, hidden ellipsis nowrap);
+    .__class_write_with_important(ib,          display, inline-block);
+    .__class_write_with_important(db,          display, block);
+    .__class_write_with_important(center,      margin-left margin-right,auto auto);
+
+    // 不可见，但是仍可以加载
+    .__class_write_with_important(v-hide,top left position clip clip, -50px -50px absolute rect(1px 1px 1px 1px)  rect(1px, 1px, 1px, 1px));
+
+    //center
+    .__class_write_with_important(center,margin-left margin-right,auto auto);
+
+
+    //对其方式
+    .__class_write_with_important(tr,text-align,right);
+    .__class_write_with_important(tc,text-align,center);
+    .__class_write_with_important(tl,text-align,left);
+
+
+    .__class_write_with_important(pa,position,absolute);
+    .__class_write_with_important(pr,position,relative);
+    .__class_write_with_important(ps,position,static);
+
+    .__class_write_with_important(db, display,block);
+    .__class_write_with_important(di, display, inline);
+    .__class_write_with_important(dib,display,inline-block);
+
+    //
+    .__class_write_with_important(cp,cursor,pointer);
+    .__class_write_with_important(cd,cursor,default);
+
+    .__class_write_with_important(bbox, box-sizing, border-box);
+    .__class_write_with_important(cbox, box-sizing, content-box);
+
+    //
+    .__class_write_with_important(wnw, white-space, nowrap);
+    .__class_write_with_important(wnn, white-space, normal);
+
+
+    .__class_write_with_important(hide, display, none);
+
+    .__class_write_with_important(bg-coveride, background-size, cover);
+    .__class_write_with_important(background-size, background-size, contain);
+
+    .__class_write_with_important(fit-cover, object-fit, cover);
+    .__class_write_with_important(fit-contain, object-fit, contain);
+
+    .__class_write_with_important(ts-late-x--50p, transform, translateX(-50%));
+    .__class_write_with_important(ts-late-y--50p, transform, translateY(-50%));
+
+
+    .__class_write(bd1px, border-width border-style, 1px solid);
+
+
+
+
+    each(range(0, 5), {
+        .__class_write_with_important(~"h@{value}px", height , unit(@value, px));
+        .__class_write_with_important(~"w@{value}px", height ,unit(@value, px));
+        .__class_write_with_important(~"bt@{value}px", border-top-width ,unit(@value, px));
+        .__class_write_with_important(~"br@{value}px", border-right-width , unit(@value, px));
+        .__class_write_with_important(~"bb@{value}px", border-bottom-width , unit(@value, px));
+        .__class_write_with_important(~"bl@{value}px", border-left-width , unit(@value, px));
+        .__class_write_with_important(~"b@{value}px", border-width , unit(@value, px));
+        .__class_write_with_important(~"s@{value}px", width height, unit(@value, px));
+    })
+
+    .__class_write_with_important(b-solid, brder-style, solid);
+    .__class_write_with_important(b-dotted, brder-style, dotted);
+    .__class_write_with_important(b-dashed, brder-style, dashed);
+    .__class_write_with_important(b-double, brder-style, double);
+
+    .__class_write_with_important(h-auto, height, auto);
+    .__class_write_with_important(w-auto, width, auto);
+
+    .__class_write_with_important(bg-size-cover, background-size, cover);
+    .__class_write_with_important(bg-size-contain, background-size, contain);
+    .__class_write_with_important(bg-size-100p, background-size, ~"100% 100%");
+
+
+    //z的设置
+    each(range(0, 5000, 100){
+        .__class_write_with_important(~"z@{value}", z-index ,@value);
+    })
+
+    //border-raduis
+    each(0 1 2 3 4 5 7 8 9,{
+        .__class_write_with_important(~"bdr@{value}", border-radius ,unit(@value, px));
+    })
+    .__class_write_with_important(bdr50p, border-radius, 50%);
+
+
+    //font-width
+    each(range(100, 700, 100){
+        .__class_write_with_important(~"fw@{value}", font-weight ,@value);
+    })
+    .__class_write_with_important(fw-auto, font-weight ,inherit);
+
+    .toolkitGen(@gp, @value-list){
+        @n:length(@value-list);
+
+        //距离
+        .write(@key,@value) when(@gp = "distance"){
+
+            .__class_write_with_important(~"m@{key}",  margin, @value);
+            .__class_write_with_important(~"mh@{key}", margin-left margin-right, @value @value);
+            .__class_write_with_important(~"mv@{key}", margin-top margin-bottom, @value @value);
+            .__class_write_with_important(~"ml@{key}", margin-left, @value);
+            .__class_write_with_important(~"mt@{key}", margin-top, @value);
+            .__class_write_with_important(~"mr@{key}", margin-right, @value);
+            .__class_write_with_important(~"mb@{key}", margin-bottom, @value);
+
+            .__class_write_with_important(~"p@{key}",  padding, @value);
+            .__class_write_with_important(~"ph@{key}", padding-left padding-right, @value @value);
+            .__class_write_with_important(~"pv@{key}", padding-top padding-bottom, @value @value);
+            .__class_write_with_important(~"pl@{key}", padding-left, @value);
+            .__class_write_with_important(~"pt@{key}", padding-top, @value);
+            .__class_write_with_important(~"pr@{key}", padding-right, @value);
+            .__class_write_with_important(~"pb@{key}", padding-bottom, @value);
+        }
+
+        //大小
+        .write(@key,@value) when(@gp = "size"){
+            .__class_write_with_important(~"fz@{key}",      font-size, @value);
+            .__class_write_with_important(~"fz@{key}-rem",      font-size, unit(@value, rem));
+            .__class_write_with_important(~"w@{key}",       width, @value);
+            .__class_write_with_important(~"h@{key}",       height, @value);
+            .__class_write_with_important(~"lh@{key}",      line-height, @value);
+            .__class_write_with_important(~"ti@{key}",      text-indent, @value);
+            //.__class_write_with_important(~"hgap@{key}",    height, @value);
+            //.__class_write_with_important(~"vgap@{key}",    width display, @value inline-block);
+        }
+
+        //vwvh
+        .write(@key,@value) when(@gp = "vwvh"){
+            @kk:replace(~"@{value}", "\.", "d", "g");
+            .__class_write_with_important(~"vw@{kk}",    width,   ~"@{value}vw");
+            .__class_write_with_important(~"vh@{kk}",    height,  ~"@{value}vh");
+        }
+
+
+        .loop(@n)when(@n>0){
+            @val:extract(@value-list,@n);
+
+            //小于1且非百分比数字
+            //乘以10,去掉小数点，前面加0
+            .tranKey(@number)when(@val <  1)  and not(ispercentage(@val)){
+                @valn:unit(@number * 10);
+                @valn2:replace(~"0@{valn}","\.","","g");
+                .write(@valn2,@val);
+            }
+            //大于1非百分比数字
+            //乘以10,小数点换为d
+            .tranKey(@number)when(@val >= 1) and not(ispercentage(@val)){
+                @valn:unit(@number * 10);
+                @valn2:replace(~"@{valn}","\.","d","g");
+                .write(@valn2,@val);
+            }
+
+            //百分比
+            .tranKey(@number)when(ispercentage(@val)){
+                @valn:unit(@number);
+                @valn2:replace(~"@{valn}","\.","d","g");
+                @key:@valn2;
+                @value:@val;
+                .__class_write_with_important(~"w@{key}p",       width,  @value);
+                .__class_write_with_important(~"h@{key}p",       height,  @value);
+                .__class_write_with_important(~"l@{key}p",       left,  @value);
+                .__class_write_with_important(~"t@{key}p",       top,  @value);
+                .__class_write_with_important(~"r@{key}p",       right,  @value);
+                .__class_write_with_important(~"b@{key}p",       bottom,  @value);
+                //.__class_write_with_important(~"pl@{key}p",      padding-left, @value);
+                //.__class_write_with_important(~"pt@{key}p",      padding-top, @value);
+                //.__class_write_with_important(~"pr@{key}p",      padding-right, @value);
+                //.__class_write_with_important(~"pb@{key}p",      padding-bottom, @value);
+            }
+
+            //offset
+            .tranKey(@val) when(@gp="offset"){
+                .__class_write_with_important(~"offset-x-@{val}",       left,  unit(@val,px));
+                .__class_write_with_important(~"offset-y-@{val}",       top,   unit(@val,px));
+            }
+
+            .tranKey(@val);
+            .loop(@n - 1);
+        }
+        .loop(@n)
+    }
+
+
+    @values:@size_range;
+
+    //距离组   //.mt1.mb025
+    .toolkitGen("distance", @values);
+
+    //大小 //.fz075 fz95 fz10d5 w08 w15 w17d5 .scale09
+    .toolkitGen("size", @values);
+
+    //透明 .op01.op05.op10
+    each(@opcity_range{
+        @val:@value/100;
+        @k: replace(
+                .floatPadStarts(@value/10, 2)[@__],
+            "\.", "d", "g"
+        );
+        //@k: .floatPadStarts(@value/10, 5)[@__];
+        .__class_write_with_important(          ~"op@{k}",    opacity,  @val);
+        .__class_write_with_important-hover(    ~"op@{k}",    opacity,  @val);
+    })
+
+    //scale08_5
+    .eachRange(@scale_range, {
+        @val:@value/100;
+        @k: replace(
+                .floatPadStarts(@value/10, 2)[@__],
+            "\.", "d", "g"
+        );
+        .__class_write_with_important(          ~"scale@{k}",    transform,  ~"scale(@{val})");
+        .__class_write_with_important-hover(    ~"scale@{k}",    transform,  ~"scale(@{val})");
+    });
+
+
+    /*缩放 .scale01.scale10*/
+    //.toolkitGen("scale",0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.75 1 1.05 1.1 1.15 1.2 1.25 1.3 1.4 1.5 1.75 1.8 2 2.1 2.4 2.7 3.0 3 3.3);
+
+    //百分比 .w100p.h33d33p.l33d33p.t100p.pt16d66p
+    .toolkitGen("%",33.33% 100%);
+    .toolkitGen("%",0% 5% 10% 15% 20% 25% 30% 35% 40% 45% 50% 55% 60% 65% 70% 75% 80% 85% 90% 95%);
+
+    //vh,vw
+    .toolkitGen("vwvh",0 10 12.5 20 25 30 33.33 35 36 50 66.66 75 80 90 100);
+
+    //offset
+    .toolkitGen("offset", range(-20,20,1));
+
+    //m-auto,mh-auto等
+    .__class_write_with_important(m-auto, margin,auto);
+    .__class_write_with_important(mh-auto,margin-left margin-right,auto auto);
+    .__class_write_with_important(mv-auto,margin-top margin-bottom,auto auto);
+    .__class_write_with_important(ml-auto,margin-left,auto);
+    .__class_write_with_important(mt-auto,margin-top,auto);
+    .__class_write_with_important(mr-auto,margin-right,auto);
+    .__class_write_with_important(mb-auto,margin-bottom,auto);
+
+    //子元素填充
+    .child-abs-fill{
+        position: relative;
+        >.child{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+
+//::-webkit-scrollbar                滚动条整体部分
+//::-webkit-scrollbar-thumb          滚动条里面的小方块，能向上向下移动（或向左向右移动）
+//::-webkit-scrollbar-track          滚动条的轨道（里面装有Thumb）
+//::-webkit-scrollbar-button         滚动条的轨道的两端按钮，由于通过点击微调小方块的位置。
+//::-webkit-scrollbar-track-piece    内层轨道，滚动条中间部分
+//::-webkit-scrollbar-corner         边角，即垂直滚动条和水平滚动条相交的地方
+//::-webkit-resizer                  两个滚动条的交汇处上用于拖动调整元素大小的小控件
+._scrollSett(@color:#425390, @width:5px){
+    /* 设置滚动条的样式 */
+    &::-webkit-scrollbar {
+        width:@width;
+        height: @width;
+        margin-right: 10px;
+    }
+    /* 滚动槽 */
+    &::-webkit-scrollbar-track {
+        //-webkit-box-shadow:inset 0 0 6px @color;
+        //border-radius:10px;
+    }
+    /* 滚动条滑块 */
+    &::-webkit-scrollbar-thumb {
+        border-radius:@width;
+        background:@color;
+        //-webkit-box-shadow:inset 0 0 6px @color;R
+    }
+    &::-webkit-scrollbar-thumb:window-inactive {
+        //background:rgba(255,0,0,0.4);
+    }
+}
+
+
+.flex-function(){
+    .flex{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        &.inline{
+            display: inline-flex;
+
+            //修复inline的偏差
+            &.fix{
+                margin-top: -0.14em;
+            }
+        }
+
+        &.column{       flex-direction      : column;  }
+
+        &.jc{
+            &-start     {justify-content    : flex-start; }
+            &-center    {justify-content    : center;}
+            &-end       {justify-content    : flex-end;}
+            &-between   {justify-content    : space-between;  }
+            &-around    {justify-content    : space-around;  }
+        }
+        &.between       {justify-content    : space-between;  }
+        &.around        {justify-content    : space-around;  }
+
+        &.ai{
+            &-start      {align-items        : flex-start};
+            &-center     {align-items        : center;}
+            &-end        {align-items        : flex-end;}
+            &-stretch    {align-items        : stretch;}
+        }
+
+        &.ac{
+            &-start     {align-content      : flex-start;}
+            &-center    {align-content      : center;}
+            &-end       {align-content      : flex-end;}
+            &-between   {align-content      : space-between;}
+            &-around    {align-content      : space-around;}
+            &-stretch   {align-content      : stretch;}
+        }
+
+        //flex-wrap设置
+        &.wrap{
+            &{flex-wrap: wrap;}
+            &-rev{flex-wrap: wrap-reverse;}
+            &-no{flex-wrap: nowrap;}
+            &-in{flex-wrap: inherit;}
+            &-un{flex-wrap: unset;}
+        }
+    }
+
+    //align-self系列
+    .as{
+        &-start{align-self      : flex-start;}
+        &-center{align-self     : center;}
+        &-end{align-self        : flex-end;}
+        &-stretch{align-self    : stretch;}
+    }
+
+    .fx1{ flex: 1;}
+    .fx2{ flex: 2;}
+    .fx3{ flex: 3;}
+    .fx4{ flex: 4;}
+    .fx5{ flex: 5;}
+}
+
+.overflow-function(){
+    .of{
+        &.h     {overflow: hidden;}
+        &.ya    {overflow-y: auto;}
+        &.xa    {overflow-x: auto;}
+    }
+}
