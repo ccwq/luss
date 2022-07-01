@@ -466,20 +466,18 @@
 }
 
 
-/**
-参照js的String.prototype.padStrarts
-@result:padStarts(foo, 5)[@__];
-结果:00foo
- */
+
+//参照js的String.prototype.padStrarts
+//@result:padStarts(foo, 5)[@__];
+//结果:00foo
 .padStarts(@string, @length:3, @padString:"0000000000"){
     @__:  replace(~"@{padString}@{string}", ".+(.{@{length}}?)$", "$1");
 }
 
-/**
-针对浮点数优化的padStarts
-@result:padStarts(foo, 5)[@__];
-结果:00foo
- */
+
+//针对浮点数优化的padStarts
+//@result:padStarts(foo, 5)[@__];
+//结果:00foo
 .floatPadStarts(@number, @length:3, @padString:"0000000000"){
     @nMod:mod(@number, 1);
     .calc() when (@nMod = 0){
@@ -493,12 +491,12 @@
 
 
 
-/**
- * 多个range使用
-.eachRange(range(1,5) range(10,15), {
-        hs:@value;
-})
-*/
+
+//多个range使用
+//.eachRange(range(1,5) range(10,15), {
+//        hs:@value;
+//})
+
 .eachRange(@rangeLs, @rules){
     each(@rangeLs, {
         each(@value, {
