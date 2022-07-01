@@ -92,7 +92,6 @@
     ._size_lh(@s,@s)
 }
 
-
 //设置尺寸时候，同时设置margin没size尺寸的一般（负）
 ._size_rever_margin(@width,@height){
     ._size(@width,@height);
@@ -173,7 +172,6 @@
     ._size_lh(0);
     ._dib;
 
-
     .____write() when(@dir=right){border-left-color:@color;}
     .____write() when(@dir=bottom){border-top-color:@color;}
     .____write() when(@dir=left){border-right-color:@color;}
@@ -228,7 +226,6 @@
     @gap_w:~`@{p_list}(2)`;
     @gap_num:~`@{p_list}(3)`;
 
-
     //计算最后一个单元格宽度
     @last_w:~`(function(){
 		var arg = eval("@{col_width_list}".replace(/px/g,""));
@@ -250,9 +247,6 @@
 		return lstw;
 	})()`;
 
-
-
-
     width:~`(function(){
 		var main_w = parseInt("@{main_w}");
 		var gap_num = @{gap_num};
@@ -266,7 +260,6 @@
 			return main_w + "px";
 		}
 	})()`;
-
 
     //定义循环
     .gen_grid_loop(@times,@paras) when(@times >0){
@@ -305,19 +298,13 @@
 //
 ._colsets(@colList,@fullWidth,@innerGap:0,@edgeGap:0){
     @leng:@length(@colList);
-
-
     @lastWidth:@fullWidth;
     ._loop(@n) when(@n<=@length){
         @w:extract(@colList,@n);
-
-        //@lastWidth
-
         >*:nth-child(@{n}){
             width:@w;
             margin-right: @innerGap;
         }
-
         ._loop(@n+1);
     }
     ._loop(1);
@@ -339,7 +326,6 @@
         left: -@gap*0.5;
         position: relative;
         font-size: 0;
-
         >*{
             &:extend(.dib);
             font-size: 14px;
@@ -356,7 +342,6 @@
             width: @cellw;
         }
     }
-
     .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = false){
         @cellw:(@main_width - (@n)*@gap)/@n + @cell_width_offset;
         width: @main_width + @gap;
@@ -365,12 +350,9 @@
             width: @cellw;
         }
     }
-
     .gen_comm;
     .gen(@main_width,@gap,@n,@edge_gap);
-
 }
-
 
 //半透明背景，兼容ie
 ._bgcolor_alpha(@bgcolor: rgba(0,0,0,.51)){
@@ -417,8 +399,6 @@
     background-image: repeating-linear-gradient(-45deg, @tick-color 0, @tick-color 0.25em, @gap-color 0, @gap-color @gap-length);
 }
 
-
-
 //规定表格个列的宽度和对齐方式,自动宽度传入-1
 //ex: 0/auto 表示不干涉该列宽度
 //.table-1{
@@ -435,22 +415,15 @@
             @paddingLeft:extract(@value,3);
             @paddingRight:extract(@value,4);
             &:nth-child(@{n}){
-
                 & when(@width>0){
-
-
-
                     width: @width;
                 }
-
                 & when(iskeyword(@align)){
                     text-align:@align;
                 }
-
                 & when(isnumber(@paddingLeft)){
                     padding-left:@paddingLeft;
                 }
-
                 & when(isnumber(@paddingRight)){
                     padding-right:@paddingRight;
                 }
@@ -458,14 +431,10 @@
         }
         .loop(@n - 1);
     }
-
-
     @widthList:@rest;
     @le:length(@widthList);
     .loop(@le);
 }
-
-
 
 //参照js的String.prototype.padStrarts
 //@result:padStarts(foo, 5)[@__];
@@ -473,7 +442,6 @@
 .padStarts(@string, @length:3, @padString:"0000000000"){
     @__:  replace(~"@{padString}@{string}", ".+(.{@{length}}?)$", "$1");
 }
-
 
 //针对浮点数优化的padStarts
 //@result:padStarts(foo, 5)[@__];
@@ -489,9 +457,6 @@
     @__:.calc()[@__];
 }
 
-
-
-
 //多个range使用
 //.eachRange(range(1,5) range(10,15), {
 //        hs:@value;
@@ -505,14 +470,10 @@
     })
 }
 
-
-
-
 ._lh(@height){
     line-height: @height;
     height: @height;
 }
-
 
 .md-colors-function(){
     @ls:@colors-list;
@@ -529,8 +490,6 @@
             }
         })
     }
-
-
     //一个类似表单布局的结构
     .form-gala{
         >.item{
@@ -572,7 +531,6 @@
         }
     }
 
-
     .__class_write(bg-icon,     background-repeat background-position, no-repeat  ~"50% 50%");
     .__class_write(noselect,    -moz-user-select -webkit-user-select -ms-user-select -khtml-user-select user-select, none none none none none);
 
@@ -586,7 +544,6 @@
 
     //center
     .__class_write_with_important(center,margin-left margin-right,auto auto);
-
 
     //对其方式
     .__class_write_with_important(tr,text-align,right);
@@ -625,11 +582,7 @@
     .__class_write_with_important(ts-late-x--50p, transform, translateX(-50%));
     .__class_write_with_important(ts-late-y--50p, transform, translateY(-50%));
 
-
     .__class_write(bd1px, border-width border-style, 1px solid);
-
-
-
 
     each(range(0, 5), {
         .__class_write_with_important(~"h@{value}px", height , unit(@value, px));
@@ -715,7 +668,6 @@
             .__class_write_with_important(~"vh@{kk}",    height,  ~"@{value}vh");
         }
 
-
         .loop(@n)when(@n>0){
             @val:extract(@value-list,@n);
 
@@ -763,8 +715,6 @@
         }
         .loop(@n)
     }
-
-
     @values:@size_range;
 
     //距离组   //.mt1.mb025
@@ -863,7 +813,6 @@
     }
 }
 
-
 .flex-function(){
     .flex{
         display: flex;
@@ -924,7 +873,6 @@
         &-end{align-self        : flex-end;}
         &-stretch{align-self    : stretch;}
     }
-
     .fx1{ flex: 1;}
     .fx2{ flex: 2;}
     .fx3{ flex: 3;}
