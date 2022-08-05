@@ -196,299 +196,6 @@ a {
 .fs-reset > * {
   font-size: 1rem;
 }
-.ew.w3 {
-  width: 3em !important;
-}
-.ew.w4 {
-  width: 4em !important;
-}
-.ew.w5 {
-  width: 5em !important;
-}
-.ew.w6 {
-  width: 6em !important;
-}
-.ew.w7 {
-  width: 7em !important;
-}
-.ew.w8 {
-  width: 8em !important;
-}
-.ew.w9 {
-  width: 9em !important;
-}
-.ew.w10 {
-  width: 10em !important;
-}
-.ew.w11 {
-  width: 11em !important;
-}
-.ew.w12 {
-  width: 12em !important;
-}
-.ew.w13 {
-  width: 13em !important;
-}
-.ew.w14 {
-  width: 14em !important;
-}
-.ew.w15 {
-  width: 15em !important;
-}
-.ew.w16 {
-  width: 16em !important;
-}
-.ew.w17 {
-  width: 17em !important;
-}
-.ew.w18 {
-  width: 18em !important;
-}
-.ew.w19 {
-  width: 19em !important;
-}
-.ew.w20 {
-  width: 20em !important;
-}
-.ew.w21 {
-  width: 21em !important;
-}
-.ew.w22 {
-  width: 22em !important;
-}
-.ew.w23 {
-  width: 23em !important;
-}
-.ew.w24 {
-  width: 24em !important;
-}
-.ew.w25 {
-  width: 25em !important;
-}
-.ew.w26 {
-  width: 26em !important;
-}
-.ew.w27 {
-  width: 27em !important;
-}
-.ew.w28 {
-  width: 28em !important;
-}
-.ew.w29 {
-  width: 29em !important;
-}
-.ew.w30 {
-  width: 30em !important;
-}
-.form-gala > .item {
-  margin: 0.75em 0;
-  display: flex;
-  align-items: center;
-}
-.form-gala > .item > .label {
-  padding-right: 0.75em;
-}
-.form-gala > .item > .el {
-  flex: 1;
-}
-.form-gala > .item .force.w4 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 4.5em;
-}
-.form-gala > .item .force.w5 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 5.5em;
-}
-.form-gala > .item .force.w6 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 6.5em;
-}
-.form-gala > .item .force.w7 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 7.5em;
-}
-.form-gala > .item .force.w8 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 8.5em;
-}
-.form-gala > .item .force.w9 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 9.5em;
-}
-.form-gala > .item .force.w10 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 10.5em;
-}
-.form-gala > .item .force.w11 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 11.5em;
-}
-.form-gala > .item .force.w12 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 12.5em;
-}
-.form-gala > .item .force.w13 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 13.5em;
-}
-.form-gala > .item .force.w14 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 14.5em;
-}
-.form-gala > .item .force.w15 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 15.5em;
-}
-.form-gala > .item .force.w16 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 16.5em;
-}
-.form-gala > .item .force.w17 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 17.5em;
-}
-.form-gala > .item .force.w18 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 18.5em;
-}
-.form-gala > .item .force.w19 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 19.5em;
-}
-.form-gala > .item .force.w20 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 20.5em;
-}
-.form-gala > .item .force.w21 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 21.5em;
-}
-.form-gala > .item .force.w22 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 22.5em;
-}
-.form-gala > .item .force.w23 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 23.5em;
-}
-.form-gala > .item .force.w24 {
-  flex: unset;
-  flex-shrink: 0;
-  width: 24.5em;
-}
-.form-gala.w4 > .item > .label,
-.form-gala.lw4 > .item > .label {
-  flex: unset;
-  width: 4.5em;
-}
-.form-gala.w5 > .item > .label,
-.form-gala.lw5 > .item > .label {
-  flex: unset;
-  width: 5.5em;
-}
-.form-gala.w6 > .item > .label,
-.form-gala.lw6 > .item > .label {
-  flex: unset;
-  width: 6.5em;
-}
-.form-gala.w7 > .item > .label,
-.form-gala.lw7 > .item > .label {
-  flex: unset;
-  width: 7.5em;
-}
-.form-gala.w8 > .item > .label,
-.form-gala.lw8 > .item > .label {
-  flex: unset;
-  width: 8.5em;
-}
-.form-gala.w9 > .item > .label,
-.form-gala.lw9 > .item > .label {
-  flex: unset;
-  width: 9.5em;
-}
-.form-gala.w10 > .item > .label,
-.form-gala.lw10 > .item > .label {
-  flex: unset;
-  width: 10.5em;
-}
-.form-gala.w11 > .item > .label,
-.form-gala.lw11 > .item > .label {
-  flex: unset;
-  width: 11.5em;
-}
-.form-gala.w12 > .item > .label,
-.form-gala.lw12 > .item > .label {
-  flex: unset;
-  width: 12.5em;
-}
-.form-gala.w13 > .item > .label,
-.form-gala.lw13 > .item > .label {
-  flex: unset;
-  width: 13.5em;
-}
-.form-gala.w14 > .item > .label,
-.form-gala.lw14 > .item > .label {
-  flex: unset;
-  width: 14.5em;
-}
-.form-gala.w15 > .item > .label,
-.form-gala.lw15 > .item > .label {
-  flex: unset;
-  width: 15.5em;
-}
-.form-gala.w16 > .item > .label,
-.form-gala.lw16 > .item > .label {
-  flex: unset;
-  width: 16.5em;
-}
-.form-gala.w17 > .item > .label,
-.form-gala.lw17 > .item > .label {
-  flex: unset;
-  width: 17.5em;
-}
-.form-gala.w18 > .item > .label,
-.form-gala.lw18 > .item > .label {
-  flex: unset;
-  width: 18.5em;
-}
-.form-gala.w19 > .item > .label,
-.form-gala.lw19 > .item > .label {
-  flex: unset;
-  width: 19.5em;
-}
-.form-gala.w20 > .item > .label,
-.form-gala.lw20 > .item > .label {
-  flex: unset;
-  width: 20.5em;
-}
-.form-gala.w21 > .item > .label,
-.form-gala.lw21 > .item > .label {
-  flex: unset;
-  width: 21.5em;
-}
-.form-gala.label-right .item > .label {
-  text-align: right;
-}
 .bg-icon {
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -1036,6 +743,299 @@ a {
 }
 .bg-size-100p-i {
   background-size: 100% 100% !important;
+}
+.ew.w3 {
+  width: 3em !important;
+}
+.ew.w4 {
+  width: 4em !important;
+}
+.ew.w5 {
+  width: 5em !important;
+}
+.ew.w6 {
+  width: 6em !important;
+}
+.ew.w7 {
+  width: 7em !important;
+}
+.ew.w8 {
+  width: 8em !important;
+}
+.ew.w9 {
+  width: 9em !important;
+}
+.ew.w10 {
+  width: 10em !important;
+}
+.ew.w11 {
+  width: 11em !important;
+}
+.ew.w12 {
+  width: 12em !important;
+}
+.ew.w13 {
+  width: 13em !important;
+}
+.ew.w14 {
+  width: 14em !important;
+}
+.ew.w15 {
+  width: 15em !important;
+}
+.ew.w16 {
+  width: 16em !important;
+}
+.ew.w17 {
+  width: 17em !important;
+}
+.ew.w18 {
+  width: 18em !important;
+}
+.ew.w19 {
+  width: 19em !important;
+}
+.ew.w20 {
+  width: 20em !important;
+}
+.ew.w21 {
+  width: 21em !important;
+}
+.ew.w22 {
+  width: 22em !important;
+}
+.ew.w23 {
+  width: 23em !important;
+}
+.ew.w24 {
+  width: 24em !important;
+}
+.ew.w25 {
+  width: 25em !important;
+}
+.ew.w26 {
+  width: 26em !important;
+}
+.ew.w27 {
+  width: 27em !important;
+}
+.ew.w28 {
+  width: 28em !important;
+}
+.ew.w29 {
+  width: 29em !important;
+}
+.ew.w30 {
+  width: 30em !important;
+}
+.form-gala > .item {
+  margin: 0.75em 0;
+  display: flex;
+  align-items: center;
+}
+.form-gala > .item > .label {
+  padding-right: 0.75em;
+}
+.form-gala > .item > .el {
+  flex: 1;
+}
+.form-gala > .item .force.w4 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 4.5em;
+}
+.form-gala > .item .force.w5 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 5.5em;
+}
+.form-gala > .item .force.w6 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 6.5em;
+}
+.form-gala > .item .force.w7 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 7.5em;
+}
+.form-gala > .item .force.w8 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 8.5em;
+}
+.form-gala > .item .force.w9 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 9.5em;
+}
+.form-gala > .item .force.w10 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 10.5em;
+}
+.form-gala > .item .force.w11 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 11.5em;
+}
+.form-gala > .item .force.w12 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 12.5em;
+}
+.form-gala > .item .force.w13 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 13.5em;
+}
+.form-gala > .item .force.w14 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 14.5em;
+}
+.form-gala > .item .force.w15 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 15.5em;
+}
+.form-gala > .item .force.w16 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 16.5em;
+}
+.form-gala > .item .force.w17 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 17.5em;
+}
+.form-gala > .item .force.w18 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 18.5em;
+}
+.form-gala > .item .force.w19 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 19.5em;
+}
+.form-gala > .item .force.w20 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 20.5em;
+}
+.form-gala > .item .force.w21 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 21.5em;
+}
+.form-gala > .item .force.w22 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 22.5em;
+}
+.form-gala > .item .force.w23 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 23.5em;
+}
+.form-gala > .item .force.w24 {
+  flex: unset;
+  flex-shrink: 0;
+  width: 24.5em;
+}
+.form-gala.w4 > .item > .label,
+.form-gala.lw4 > .item > .label {
+  flex: unset;
+  width: 4.5em;
+}
+.form-gala.w5 > .item > .label,
+.form-gala.lw5 > .item > .label {
+  flex: unset;
+  width: 5.5em;
+}
+.form-gala.w6 > .item > .label,
+.form-gala.lw6 > .item > .label {
+  flex: unset;
+  width: 6.5em;
+}
+.form-gala.w7 > .item > .label,
+.form-gala.lw7 > .item > .label {
+  flex: unset;
+  width: 7.5em;
+}
+.form-gala.w8 > .item > .label,
+.form-gala.lw8 > .item > .label {
+  flex: unset;
+  width: 8.5em;
+}
+.form-gala.w9 > .item > .label,
+.form-gala.lw9 > .item > .label {
+  flex: unset;
+  width: 9.5em;
+}
+.form-gala.w10 > .item > .label,
+.form-gala.lw10 > .item > .label {
+  flex: unset;
+  width: 10.5em;
+}
+.form-gala.w11 > .item > .label,
+.form-gala.lw11 > .item > .label {
+  flex: unset;
+  width: 11.5em;
+}
+.form-gala.w12 > .item > .label,
+.form-gala.lw12 > .item > .label {
+  flex: unset;
+  width: 12.5em;
+}
+.form-gala.w13 > .item > .label,
+.form-gala.lw13 > .item > .label {
+  flex: unset;
+  width: 13.5em;
+}
+.form-gala.w14 > .item > .label,
+.form-gala.lw14 > .item > .label {
+  flex: unset;
+  width: 14.5em;
+}
+.form-gala.w15 > .item > .label,
+.form-gala.lw15 > .item > .label {
+  flex: unset;
+  width: 15.5em;
+}
+.form-gala.w16 > .item > .label,
+.form-gala.lw16 > .item > .label {
+  flex: unset;
+  width: 16.5em;
+}
+.form-gala.w17 > .item > .label,
+.form-gala.lw17 > .item > .label {
+  flex: unset;
+  width: 17.5em;
+}
+.form-gala.w18 > .item > .label,
+.form-gala.lw18 > .item > .label {
+  flex: unset;
+  width: 18.5em;
+}
+.form-gala.w19 > .item > .label,
+.form-gala.lw19 > .item > .label {
+  flex: unset;
+  width: 19.5em;
+}
+.form-gala.w20 > .item > .label,
+.form-gala.lw20 > .item > .label {
+  flex: unset;
+  width: 20.5em;
+}
+.form-gala.w21 > .item > .label,
+.form-gala.lw21 > .item > .label {
+  flex: unset;
+  width: 21.5em;
+}
+.form-gala.label-right .item > .label {
+  text-align: right;
 }
 .z0 {
   z-index: 0;
