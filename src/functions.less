@@ -480,57 +480,8 @@
     .loopColorList(@ls);
 }
 
-.shortcut-class-function(){
 
-    //宽度生成
-    .ew{
-        each(range(3, 30), {
-            &.w@{value}{
-                width:unit(@value, em) !important;
-            }
-        })
-    }
-    //一个类似表单布局的结构
-    .form-gala{
-        >.item{
-            margin: 0.75em 0;
-            display: flex;
-            align-items: center;
-            >.label{
-                padding-right: 0.75em;
-            }
-            >.el{
-                flex: 1;
-            }
-            .force{
-                each(range(4, 24), {
-                    &.w@{value}{
-                        flex: unset;
-                        flex-shrink: 0;
-                        width:unit(@value + 0.5, em);
-                    }
-                })
-            }
-        }
-        each(range(4, 21), {
-            &.w@{value},&.lw@{value}{
-                >.item{
-                    >.label{
-                        flex: unset;
-                        width:unit(@value + 0.5, em);
-                    }
-                }
-            }
-        })
-        &.label-right{
-            .item{
-                >.label{
-                    text-align: right;
-                }
-            }
-        }
-    }
-
+.mini-shortcut-class-function(){
     .__class_write(bg-icon,     background-repeat background-position, no-repeat  ~"50% 50%");
     .__class_write(noselect,    -moz-user-select -webkit-user-select -ms-user-select -khtml-user-select user-select, none none none none none);
 
@@ -606,6 +557,62 @@
     .__class_write_with_important(bg-size-cover, background-size, cover);
     .__class_write_with_important(bg-size-contain, background-size, contain);
     .__class_write_with_important(bg-size-100p, background-size, ~"100% 100%");
+}
+
+.shortcut-class-function(){
+
+    .mini-shortcut-class-function();
+
+    //宽度生成
+    .ew{
+        each(range(3, 30), {
+            &.w@{value}{
+                width:unit(@value, em) !important;
+            }
+        })
+    }
+    //一个类似表单布局的结构
+    .form-gala{
+        >.item{
+            margin: 0.75em 0;
+            display: flex;
+            align-items: center;
+            >.label{
+                padding-right: 0.75em;
+            }
+            >.el{
+                flex: 1;
+            }
+            .force{
+                each(range(4, 24), {
+                    &.w@{value}{
+                        flex: unset;
+                        flex-shrink: 0;
+                        width:unit(@value + 0.5, em);
+                    }
+                })
+            }
+        }
+        each(range(4, 21), {
+            &.w@{value},&.lw@{value}{
+                >.item{
+                    >.label{
+                        flex: unset;
+                        width:unit(@value + 0.5, em);
+                    }
+                }
+            }
+        })
+        &.label-right{
+            .item{
+                >.label{
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+
 
 
     //z的设置
