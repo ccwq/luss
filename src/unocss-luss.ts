@@ -1,6 +1,6 @@
 type IDic =  {[key:string]:string}
 
-// 媒体查询
+// 媒体查询--
 const breakPoints = [640, 768, 1024, 1280, 1536, 1920];
 const mediaQueryDic:IDic = {
     "xs": `(max-width: ${breakPoints[0]}px)`,
@@ -71,7 +71,8 @@ const unitDic:IDic = {
     "vw": "vw",
 }
 
-const unitList = "xp".split("");
+// const unitList = "xp".split("");
+const unitList = Object.keys(unitDic);
 const boxModelKeyList = Object.keys(boxModeDic)
 const directionKeyList = Object.keys(directPlusDic)
 

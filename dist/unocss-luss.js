@@ -63,7 +63,8 @@ const unitDic = {
     "vh": "vh",
     "vw": "vw",
 };
-const unitList = "xp".split("");
+// const unitList = "xp".split("");
+const unitList = Object.keys(unitDic);
 const boxModelKeyList = Object.keys(boxModeDic);
 const directionKeyList = Object.keys(directPlusDic);
 // 媒体查询和伪类正则
