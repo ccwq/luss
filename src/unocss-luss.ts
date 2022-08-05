@@ -240,6 +240,10 @@ const colorRule = [
         let [, prefix, type, value, important = false] = gp;
         const {colors} = conf.theme;
 
+        if (!colors || !colors.length) {
+            throw new Error("需要设定presets:[presetUno()]")
+        }
+
         const [__, color, index = "DEFAULT"] = value.match(/([a-zA-Z]+)(\d+)?/) as any[];
 
         let colorValue = "";

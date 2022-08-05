@@ -11,7 +11,7 @@ vite项目中使用
 
 ```json
 import Unocss from 'unocss/vite'
-import {extractorSplit, presetUno, Rule} from 'unocss'
+import {extractorSplit, presetUno} from 'unocss'
 import {rules, extractorPugFactory} from "luss/dist/unocss-luss"
 /*
 该语句可能在ts中被标红
@@ -22,21 +22,27 @@ const extractorPug = extractorPugFactory(import("pug"))
 
 export default {
     plugins: [
-        Unocss({
+        Unocss(
+        {
             //@ts-ignore
             rules: [
                 //@ts-ignore
-                ...rules,
+                ...rules
             ],
             extractors: [
                 extractorPug(),
-                extractorSplit,
+                extractorSplit
             ],
-        })
-    ],
+            "presets": [
+                
+                // 否则颜色相关的设定会报错
+                presetUno(),
+            ]
+        }
+        )
+    ]
 }
 ```
-
 
 # 引用:
 ease部分的内容来自qivhou的仓库
