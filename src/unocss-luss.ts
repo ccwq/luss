@@ -109,7 +109,7 @@ const beforeRuleOutput = (conf:any, matched:any, originRet:any) => {
     const mqCondiString = mediaQueryDic[prefix] || "";
 
     // 伪类
-    const preonduString = preonduDic[prefix] || "";
+    let preonduString = preonduDic[prefix] || "";
 
     // 媒体查询
     if(mqCondiString) {
@@ -118,8 +118,8 @@ const beforeRuleOutput = (conf:any, matched:any, originRet:any) => {
         const rulePropString =  Object.keys(originRet).reduce((result, key)=>{
             return result + `${key}:${originRet[key]};`;
         }, "");
-        const ruleString = `html ${selector}{${rulePropString}}`;
-        const fullString = `@media ${mqCondiString}{${ruleString}}`
+        const ruleString = `html .${selector}{${rulePropString}}`;
+        const fullString = `@media ${mqCondiString}{${ruleString}}`;
         return fullString;
     }
 
@@ -127,7 +127,7 @@ const beforeRuleOutput = (conf:any, matched:any, originRet:any) => {
     else if(preonduString){
         const selector = rawSelector;
 
-        const ruleName = "html " + preonduString.replace(/\$selector\$/, selector);
+        const ruleName = "html ." + preonduString.replace(/\$selector\$/, selector);
         const rulePropString = Object.keys(originRet).reduce((result, key) => {
             return result + `${key}:${originRet[key]};`;
         }, "");
@@ -240,7 +240,7 @@ const colorRule = [
         let [, prefix, type, value, important = false] = gp;
         const {colors} = conf.theme;
 
-        if (!colors || !colors.length) {
+        if (!colors) {
             throw new Error("需要设定presets:[presetUno()]")
         }
 

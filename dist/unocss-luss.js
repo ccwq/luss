@@ -92,7 +92,7 @@ const beforeRuleOutput = (conf, matched, originRet) => {
     // 媒体查询
     const mqCondiString = mediaQueryDic[prefix] || "";
     // 伪类
-    const preonduString = preonduDic[prefix] || "";
+    let preonduString = preonduDic[prefix] || "";
     // 媒体查询
     if (mqCondiString) {
         // const selector = e(rawSelector);
@@ -100,14 +100,14 @@ const beforeRuleOutput = (conf, matched, originRet) => {
         const rulePropString = Object.keys(originRet).reduce((result, key) => {
             return result + `${key}:${originRet[key]};`;
         }, "");
-        const ruleString = `html ${selector}{${rulePropString}}`;
+        const ruleString = `html .${selector}{${rulePropString}}`;
         const fullString = `@media ${mqCondiString}{${ruleString}}`;
         return fullString;
     }
     // 伪类
     else if (preonduString) {
         const selector = rawSelector;
-        const ruleName = "html " + preonduString.replace(/\$selector\$/, selector);
+        const ruleName = "html ." + preonduString.replace(/\$selector\$/, selector);
         const rulePropString = Object.keys(originRet).reduce((result, key) => {
             return result + `${key}:${originRet[key]};`;
         }, "");
@@ -210,6 +210,9 @@ const colorRule = [
     (gp, conf) => {
         let [, prefix, type, value, important = false] = gp;
         const { colors } = conf.theme;
+        if (!colors) {
+            throw new Error("需要设定presets:[presetUno()]");
+        }
         const [__, color, index = "DEFAULT"] = value.match(/([a-zA-Z]+)(\d+)?/);
         let colorValue = "";
         const colorSeries = colors[color];
