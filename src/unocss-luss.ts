@@ -156,7 +156,6 @@ const boxRule: [RegExp, Function] = [
     (gp:string[], conf:any) => {
         let [, prefix, nega, prop, dire, value, , , unit = "e", important = false] = gp;
         let { rawSelector, currentSelector, variantHandlers, theme } = conf
-        console.log(conf, 222);
         important = important ? " !important" : "";
         const _prop = boxModeDic[prop]
         let _dires = directPlusDic[dire]
@@ -185,7 +184,13 @@ const boxRule: [RegExp, Function] = [
         let _value = value;
         _value = valueParser(_value, !!nega);
         const ret = keys.reduce((result:IDic, key) => {
-            result[key] = _value + _unit + important;
+            let ret;
+            if (_value == "auto") {
+                ret = _value + important;
+            }else{
+                ret = _value + _unit + important;
+            }
+            result[key] = ret;
             return result;
         }, {});
         return beforeRuleOutput(conf, {prefix}, ret);
@@ -209,6 +214,8 @@ const sizeRule = [
         let _value = valueParser(value, !!nega);
         if (_value != "auto") {
             _value = _value + unitDic[unit] + important;
+        }else{
+            _value = _value + important;
         }
         const ret = keys.reduce((result:IDic, key) => {
             result[key] = _value;
