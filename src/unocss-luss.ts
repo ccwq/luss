@@ -18,7 +18,8 @@ const preonduDic:IDic = {
     "be": "$selector$::before",
     "af": "$selector$::after",
     "son": "$selector$ > *",
-    "deep-son": "$selector$ *",
+    "son-ho": "$selector$ > *:hover",
+    "son-deep": "$selector$ *",
 }
 
 // 媒体查询和伪类
@@ -31,8 +32,8 @@ const mediaQueryAndPreonduList = Object.keys({
 const boxModeDic:IDic = {
     m: "margin",
     p: "padding",
-    b: "border",
-    o: "outline",
+    border: "border",
+    outline: "outline",
 };
 
 const directBaseDic:IDic = {
@@ -59,6 +60,10 @@ const sizeValueDic:IDic = {
     lhh: "line-height, height",
     f: "font-size",
     fz: "font-size",
+    minh: "min-height",
+    minw: "min-width",
+    maxh: "max-height",
+    maxw: "max-width",
 }
 
 const unitDic:IDic = {
