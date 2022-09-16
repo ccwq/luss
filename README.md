@@ -67,7 +67,14 @@ mt01x //margin-top:0.1px
 .cl-red100 //color: #ff0000
 .bg-red;
 .bc-red;
-.ho_cl-red; //.ho_cl-red{color:@red}
+
+.ho_cl-red; //.ho_cl-red:hover{color:@red}
+.son_cl-red; //.son_cl-red>*{color:@red}
+.son-ho_cl-red; //.son_cl-red>*:hover{color:@red}
+
+.maxh150x
+.minw180x
+
 
 ```
 
@@ -100,86 +107,6 @@ pb* | padding-bottom | |
 ph* | padding-left, padding-right | 设置水平方向padding |\<div class="ph10"></div>
 pv* | padding-top, padding-bottom | 设置垂直方向padding | -
 
-预设值
-
-- 600
-- 580
-- 560
-- 550
-- 540
-- 520
-- 510
-- 500
-- 480
-- 460
-- 450
-- 440
-- 420
-- 400
-- 390
-- 380
-- 360
-- 350
-- 340
-- 330
-- 320
-- 300
-- 280
-- 270
-- 260
-- 250
-- 240
-- 220
-- 210
-- 200
-- 190
-- 180
-- 170
-- 160
-- 150
-- 140
-- 130
-- 120
-- 110
-- 100
-- 90
-- 80
-- 70
-- 60
-- 51
-- 50
-- 48
-- 45
-- 42
-- 40
-- 39
-- 36
-- 33
-- 30
-- 27
-- 25
-- 24
-- 22
-- 21
-- 20
-- 18
-- 15
-- 14
-- 13
-- 12
-- 11
-- 10
-- 095
-- 09
-- 085
-- 08
-- 075
-- 06
-- 05
-- 03
-- 025
-- 0125
-- 00
 
 <hr/>
 
