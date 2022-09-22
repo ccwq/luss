@@ -209,6 +209,10 @@ const colorDic = {
     "bg": "background-color",
     "bc": "border-color",
 };
+// 允许为颜色而设置别称
+const colorSeriesAliasDic = {
+    "grey": "gray",
+};
 const colorRuleRgString = `^${mediaQueryAndPreonduReg}(${Object.keys(colorDic).join("|")})-([\\w\\d#]+)(i)?$`;
 const colorRule = [
     new RegExp(colorRuleRgString),
@@ -220,7 +224,9 @@ const colorRule = [
         }
         const [__, color, index = "DEFAULT"] = value.match(/([a-zA-Z]+)(\d+)?/);
         let colorValue = "";
-        const colorSeries = colors[color];
+        // 转换颜色别称
+        const colorKey = colorSeriesAliasDic[color] || color;
+        const colorSeries = colors[colorKey];
         if (colorSeries) {
             colorValue = colorSeries[index] || "";
         }
