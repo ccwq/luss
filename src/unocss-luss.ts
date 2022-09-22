@@ -1,8 +1,8 @@
-type IDic =  {[key:string]:string}
+type IDic = { [key: string]: string }
 
 // 媒体查询--
 const breakPoints = [640, 768, 1024, 1280, 1536, 1920];
-const mediaQueryDic:IDic = {
+const mediaQueryDic: IDic = {
     "xs": `(max-width: ${breakPoints[0]}px)`,
     "sm": `(min-width: ${breakPoints[0]}px) and (max-width: ${breakPoints[1]}px)`,
     "md": `(min-width: ${breakPoints[1]}px) and (max-width: ${breakPoints[2]}px)`,
@@ -13,7 +13,7 @@ const mediaQueryDic:IDic = {
 }
 
 // 伪类
-const preonduDic:IDic = {
+const preonduDic: IDic = {
     "ho": "$selector$:hover",
     "be": "$selector$::before",
     "af": "$selector$::after",
@@ -29,21 +29,21 @@ const mediaQueryAndPreonduList = Object.keys({
 });
 
 
-const boxModeDic:IDic = {
+const boxModeDic: IDic = {
     m: "margin",
     p: "padding",
     border: "border",
     outline: "outline",
 };
 
-const directBaseDic:IDic = {
+const directBaseDic: IDic = {
     t: "top",
     r: "right",
     b: "bottom",
     l: "left",
 }
 
-const directPlusDic:IDic = {
+const directPlusDic: IDic = {
     ...directBaseDic,
     h: "left,right",
     x: "left,right",
@@ -51,7 +51,7 @@ const directPlusDic:IDic = {
     y: "top,bottom",
 }
 
-const sizeValueDic:IDic = {
+const sizeValueDic: IDic = {
     ...directBaseDic,
     w: "width",
     h: "height",
@@ -66,7 +66,7 @@ const sizeValueDic:IDic = {
     maxw: "max-width",
 }
 
-const unitDic:IDic = {
+const unitDic: IDic = {
     x: "px",
     px: "px",
     p: "%",
@@ -89,7 +89,7 @@ const numberAndUnitRegString =
     `((\\d+(-\\d+)?)|a)` +
     `(${unitList.join("|")})?` +
     "(i)?"
-;
+    ;
 
 const keys = Object.keys;
 const valueParser = function (value: string, isNega: boolean = false) {
@@ -106,9 +106,9 @@ const valueParser = function (value: string, isNega: boolean = false) {
 }
 
 
-const beforeRuleOutput = (conf:any, matched:any, originRet:any) => {
+const beforeRuleOutput = (conf: any, matched: any, originRet: any) => {
     let { rawSelector, currentSelector, variantHandlers, theme } = conf
-    let {prefix} = matched;
+    let { prefix } = matched;
 
     // 媒体查询
     const mqCondiString = mediaQueryDic[prefix] || "";
@@ -117,10 +117,10 @@ const beforeRuleOutput = (conf:any, matched:any, originRet:any) => {
     let preonduString = preonduDic[prefix] || "";
 
     // 媒体查询
-    if(mqCondiString) {
+    if (mqCondiString) {
         // const selector = e(rawSelector);
         const selector = rawSelector;
-        const rulePropString =  Object.keys(originRet).reduce((result, key)=>{
+        const rulePropString = Object.keys(originRet).reduce((result, key) => {
             return result + `${key}:${originRet[key]};`;
         }, "");
         const ruleString = `html .${selector}{${rulePropString}}`;
@@ -129,7 +129,7 @@ const beforeRuleOutput = (conf:any, matched:any, originRet:any) => {
     }
 
     // 伪类
-    else if(preonduString){
+    else if (preonduString) {
         const selector = rawSelector;
 
         const ruleName = "html ." + preonduString.replace(/\$selector\$/, selector);
@@ -141,7 +141,7 @@ const beforeRuleOutput = (conf:any, matched:any, originRet:any) => {
     }
 
     // 正常规则
-    else{
+    else {
         return originRet;
     }
 }
@@ -158,7 +158,7 @@ const boxRuleReg = new RegExp(
 
 const boxRule: [RegExp, Function] = [
     boxRuleReg,
-    (gp:string[], conf:any) => {
+    (gp: string[], conf: any) => {
         let [, prefix, nega, prop, dire, value, , , unit = "e", important = false] = gp;
         let { rawSelector, currentSelector, variantHandlers, theme } = conf
         important = important ? " !important" : "";
@@ -168,16 +168,16 @@ const boxRule: [RegExp, Function] = [
         let keys: string[] = [];
 
         // outline模式下没有方向之别
-        if("o"==prop) {
+        if ("o" == prop) {
             _dires = "";
         }
 
         // 处理有方向的和没有方向的情况
-        if(_dires) {
-            _dires.split(",").forEach((_dire:string) => {
+        if (_dires) {
+            _dires.split(",").forEach((_dire: string) => {
                 keys.push(_prop + "-" + _dire);
             })
-        }else{
+        } else {
             keys.push(_prop);
         }
 
@@ -188,17 +188,17 @@ const boxRule: [RegExp, Function] = [
 
         let _value = value;
         _value = valueParser(_value, !!nega);
-        const ret = keys.reduce((result:IDic, key) => {
+        const ret = keys.reduce((result: IDic, key) => {
             let ret;
             if (_value == "auto") {
                 ret = _value + important;
-            }else{
+            } else {
                 ret = _value + _unit + important;
             }
             result[key] = ret;
             return result;
         }, {});
-        return beforeRuleOutput(conf, {prefix}, ret);
+        return beforeRuleOutput(conf, { prefix }, ret);
     }
 ];
 
@@ -211,7 +211,7 @@ const sizeRule = [
         + numberAndUnitRegString
         + "$"
     ),
-    (gp:string[], conf:any) => {
+    (gp: string[], conf: any) => {
         let [, prefix, nega, prop, value, , , unit = "e", important = false] = gp;
         important = important ? " !important" : "";
         const _prop = sizeValueDic[prop]
@@ -219,31 +219,36 @@ const sizeRule = [
         let _value = valueParser(value, !!nega);
         if (_value != "auto") {
             _value = _value + unitDic[unit] + important;
-        }else{
+        } else {
             _value = _value + important;
         }
-        const ret = keys.reduce((result:IDic, key) => {
+        const ret = keys.reduce((result: IDic, key) => {
             result[key] = _value;
             return result;
         }, {});
-        return beforeRuleOutput(conf, {prefix}, ret);
+        return beforeRuleOutput(conf, { prefix }, ret);
     }
 ]
 
 // 颜色相关
-const colorDic:IDic = {
+const colorDic: IDic = {
     "co": "color",
     "cl": "color",
     "bg": "background-color",
     "bc": "border-color",
 }
 
+// 允许为颜色而设置别称
+const colorSeriesAliasDic: IDic = {
+    "grey": "gray",
+}
+
 const colorRuleRgString = `^${mediaQueryAndPreonduReg}(${Object.keys(colorDic).join("|")})-([\\w\\d#]+)(i)?$`;
 const colorRule = [
     new RegExp(colorRuleRgString),
-    (gp:string[], conf:any) => {
+    (gp: string[], conf: any) => {
         let [, prefix, type, value, important = false] = gp;
-        const {colors} = conf.theme;
+        const { colors } = conf.theme;
 
         if (!colors) {
             throw new Error("需要设定presets:[presetUno()]")
@@ -252,7 +257,10 @@ const colorRule = [
         const [__, color, index = "DEFAULT"] = value.match(/([a-zA-Z]+)(\d+)?/) as any[];
 
         let colorValue = "";
-        const colorSeries = colors[color]
+
+        // 转换颜色别称
+        const colorKey = colorSeriesAliasDic[color] || color;
+        const colorSeries = colors[colorKey]
         if (colorSeries) {
             colorValue = colorSeries[index] || "";
         }
@@ -265,8 +273,8 @@ const colorRule = [
         }
 
         const colorProp = colorDic[type];
-        const ret = {[colorProp]: colorValue};
-        return beforeRuleOutput(conf, {prefix}, ret);
+        const ret = { [colorProp]: colorValue };
+        return beforeRuleOutput(conf, { prefix }, ret);
     }
 ]
 
@@ -276,21 +284,21 @@ const regexVueTemplate = /<template.*?lang=['"]pug['"][^>]*?>\r?\n([\s\S]*?\n)<\
  * 解析pug中的unocss定义
  * @param pugImporter {}  即import("pug")
  */
-const extractorPugFactory = function(pugImporter:Promise<any>){
+const extractorPugFactory = function (pugImporter: Promise<any>) {
     return function extractorPug() {
-        async function compile(code:string, id:string) {
+        async function compile(code: string, id: string) {
 
             //@ts-ignore
             const Pug = await pugImporter;
             try {
-                return Pug.compile(code, {filename: id})();
+                return Pug.compile(code, { filename: id })();
             } catch {
             }
         }
         return {
             name: "pug",
             order: -1,
-            async extract(ctx:any) {
+            async extract(ctx: any) {
                 if (!ctx.id)
                     return;
                 if (ctx.id.match(/\.pug$/) || ctx.id.match(/\?vue&type=template/)) {
